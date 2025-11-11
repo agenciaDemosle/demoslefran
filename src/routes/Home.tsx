@@ -950,179 +950,201 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
 
 // Portfolio Section Component - Horizontal Scroll
 function PortfolioSection() {
+  const [activeCategory, setActiveCategory] = useState('web');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: "Stomping Ground Patagonia",
-      description: "E-commerce de Rent a Car y Turismo 4x4 en la Patagonia chilena",
-      image: "/images/stomping.MP4",
-      url: "https://stompingroundpatagonia4x4.cl/",
-      tech: ["WordPress", "WooCommerce", "PHP"],
-      results: [
-        "Sistema de reservas online integrado",
-        "Catálogo de vehículos 4x4 y tours",
-        "Procesamiento de pagos automatizado"
-      ]
-    },
-    {
-      id: 2,
-      title: "Contadoor",
-      description: "Página web profesional con recursos, herramientas, cotizador y servicio de Google Ads",
-      image: "/images/contadoor.mov",
-      url: "https://contadoor.cl/",
-      tech: ["React", "TypeScript", "Google Ads"],
-      results: [
-        "Sistema de cotización automatizado",
-        "Recursos y herramientas profesionales",
-        "Campañas de Google Ads optimizadas"
-      ]
-    },
-    {
-      id: 3,
-      title: "Escandalosos",
-      description: "E-commerce gastronómico, selección de pizzas y combos por pasos, sistema de delivery personalizado y gestión de redes sociales",
-      image: "/images/escandalosos.mov",
-      url: "https://escandalosospizzas.cl/",
-      tech: ["React", "Node.js", "Redes Sociales"],
-      results: [
-        "Selección por pasos intuitiva",
-        "Sistema de delivery personalizado",
-        "Gestión de redes sociales activa"
-      ]
-    },
-    {
-      id: 4,
-      title: "Tactical Outdoor",
-      description: "E-commerce duo de equipo táctico y outdoor con control de modo para cambiar toda la web",
-      image: "/images/tacticaloutdoor.MP4",
-      url: "https://tacticaloutdoor.cl/",
-      tech: ["React", "Modo Dual", "E-commerce"],
-      results: [
-        "Sistema de modo dual (Táctico/Outdoor)",
-        "Cambio completo de tema y productos",
-        "Gestión de inventario unificada"
-      ]
-    },
-    {
-      id: 5,
-      title: "Fumigaciones Lourdes",
-      description: "Página web de fumigaciones y servicio de Google Ads",
-      image: "/images/fumigaciones.mov",
-      url: "https://fumigacioneslourdes.cl/",
-      tech: ["WordPress", "Google Ads", "SEO"],
-      results: [
-        "Campañas de Google Ads efectivas",
-        "Aumento en leads cualificados",
-        "Posicionamiento local optimizado"
-      ]
-    },
-    {
-      id: 6,
-      title: "La Prov Studio",
-      description: "Página web profesional con cotizador dinámico",
-      image: "/images/laprov.MP4",
-      url: "https://laprovstudio.cl/",
-      tech: ["React", "TypeScript", "Cotizador Dinámico"],
-      results: [
-        "Cotizador interactivo en tiempo real",
-        "Diseño profesional y moderno",
-        "Formulario de contacto optimizado"
-      ]
-    },
-    {
-      id: 7,
-      title: "Mamasous",
-      description: "E-commerce gastronómico en Shopify",
-      image: "/images/mamasous.MP4",
-      url: "https://mamasous.cl/",
-      tech: ["Shopify", "E-commerce", "Gastronomía"],
-      results: [
-        "Tienda online completa en Shopify",
-        "Catálogo de productos gastronómicos",
-        "Sistema de pagos integrado"
-      ]
-    },
-    {
-      id: 8,
-      title: "Piscinas Alfa",
-      description: "Página web profesional",
-      image: "/images/piscinasalfa.mov",
-      url: "https://piscinasalfa.cl/",
-      tech: ["WordPress", "Diseño Web", "SEO"],
-      results: [
-        "Diseño profesional y moderno",
-        "Galería de proyectos",
-        "Formulario de cotización"
-      ]
-    },
-    {
-      id: 9,
-      title: "Wings",
-      description: "Página web profesional enlazada con Angendra Pro para gestión integral",
-      image: "/images/wings.MP4",
-      url: "https://wings.cl/",
-      tech: ["React", "Angendra Pro", "Integración"],
-      results: [
-        "Integración con sistema Angendra Pro",
-        "Gestión integral automatizada",
-        "Diseño profesional y funcional"
-      ]
-    },
-    {
-      id: 10,
-      title: "Rey Piscinas",
-      description: "E-commerce con sistema de cotizador personalizado para piscinas",
-      image: "/images/reypiscinas.mov",
-      url: "https://reypiscinas.cl/",
-      tech: ["React", "E-commerce", "Cotizador"],
-      results: [
-        "E-commerce completo de piscinas",
-        "Cotizador personalizado online",
-        "Sistema de gestión de productos"
-      ]
-    },
-    {
-      id: 11,
-      title: "Grúas JPV",
-      description: "Página web profesional para servicios de grúas",
-      image: "/images/gruas.mov",
-      url: "https://gruasjpv.cl/",
-      tech: ["WordPress", "Diseño Web", "SEO"],
-      results: [
-        "Diseño profesional y corporativo",
-        "Información de servicios clara",
-        "Formulario de contacto optimizado"
-      ]
-    },
-    {
-      id: 12,
-      title: "Morgan Cauchos",
-      description: "Landing page profesional para venta de cauchos y neumáticos",
-      image: "/images/morgancauchos.MP4",
-      url: "https://morgancauchos.cl/",
-      tech: ["WordPress", "Diseño Web", "SEO"],
-      results: [
-        "Página web profesional y moderna",
-        "Información clara de productos",
-        "Formulario de contacto optimizado"
-      ]
-    },
-    {
-      id: 13,
-      title: "Senby",
-      description: "Plataforma de logística con tracking de envíos en tiempo real y cotizador automático",
-      image: "/images/senby.MP4",
-      url: "https://senby.cl/",
-      tech: ["React", "Tracking", "Sistema de Cotización"],
-      results: [
-        "Sistema de tracking en tiempo real",
-        "Cotizador automático de envíos",
-        "Panel de gestión logística completo"
-      ]
-    },
-  ];
+  const projectsByCategory = {
+    web: [
+      {
+        id: 2,
+        title: "Contadoor",
+        description: "Página web profesional con recursos, herramientas, cotizador y servicio de Google Ads",
+        image: "/images/contadoor.mov",
+        url: "https://contadoor.cl/",
+        tech: ["React", "TypeScript", "Google Ads"],
+        results: [
+          "Sistema de cotización automatizado",
+          "Recursos y herramientas profesionales",
+          "Campañas de Google Ads optimizadas"
+        ]
+      },
+      {
+        id: 5,
+        title: "Fumigaciones Lourdes",
+        description: "Página web de fumigaciones y servicio de Google Ads",
+        image: "/images/fumigaciones.mov",
+        url: "https://fumigacioneslourdes.cl/",
+        tech: ["WordPress", "Google Ads", "SEO"],
+        results: [
+          "Campañas de Google Ads efectivas",
+          "Aumento en leads cualificados",
+          "Posicionamiento local optimizado"
+        ]
+      },
+      {
+        id: 6,
+        title: "La Prov Studio",
+        description: "Página web profesional con cotizador dinámico",
+        image: "/images/laprov.MP4",
+        url: "https://laprovstudio.cl/",
+        tech: ["React", "TypeScript", "Cotizador Dinámico"],
+        results: [
+          "Cotizador interactivo en tiempo real",
+          "Diseño profesional y moderno",
+          "Formulario de contacto optimizado"
+        ]
+      },
+      {
+        id: 8,
+        title: "Piscinas Alfa",
+        description: "Página web profesional",
+        image: "/images/piscinasalfa.mov",
+        url: "https://piscinasalfa.cl/",
+        tech: ["WordPress", "Diseño Web", "SEO"],
+        results: [
+          "Diseño profesional y moderno",
+          "Galería de proyectos",
+          "Formulario de cotización"
+        ]
+      },
+      {
+        id: 9,
+        title: "Wings",
+        description: "Página web profesional enlazada con Angendra Pro para gestión integral",
+        image: "/images/wings.MP4",
+        url: "https://wings.cl/",
+        tech: ["React", "Angendra Pro", "Integración"],
+        results: [
+          "Integración con sistema Angendra Pro",
+          "Gestión integral automatizada",
+          "Diseño profesional y funcional"
+        ]
+      },
+      {
+        id: 11,
+        title: "Grúas JPV",
+        description: "Página web profesional para servicios de grúas",
+        image: "/images/gruas.mov",
+        url: "https://gruasjpv.cl/",
+        tech: ["WordPress", "Diseño Web", "SEO"],
+        results: [
+          "Diseño profesional y corporativo",
+          "Información de servicios clara",
+          "Formulario de contacto optimizado"
+        ]
+      },
+      {
+        id: 12,
+        title: "Morgan Cauchos",
+        description: "Landing page profesional para venta de cauchos y neumáticos",
+        image: "/images/morgancauchos.MP4",
+        url: "https://morgancauchos.cl/",
+        tech: ["WordPress", "Diseño Web", "SEO"],
+        results: [
+          "Página web profesional y moderna",
+          "Información clara de productos",
+          "Formulario de contacto optimizado"
+        ]
+      },
+      {
+        id: 13,
+        title: "Senby",
+        description: "Plataforma de logística con tracking de envíos en tiempo real y cotizador automático",
+        image: "/images/senby.MP4",
+        url: "https://senby.cl/",
+        tech: ["React", "Tracking", "Sistema de Cotización"],
+        results: [
+          "Sistema de tracking en tiempo real",
+          "Cotizador automático de envíos",
+          "Panel de gestión logística completo"
+        ]
+      },
+    ],
+    ecommerce: [
+      {
+        id: 1,
+        title: "Stomping Ground Patagonia",
+        description: "E-commerce de Rent a Car y Turismo 4x4 en la Patagonia chilena",
+        image: "/images/stomping.MP4",
+        url: "https://stompingroundpatagonia4x4.cl/",
+        tech: ["WordPress", "WooCommerce", "PHP"],
+        results: [
+          "Sistema de reservas online integrado",
+          "Catálogo de vehículos 4x4 y tours",
+          "Procesamiento de pagos automatizado"
+        ]
+      },
+      {
+        id: 3,
+        title: "Escandalosos",
+        description: "E-commerce gastronómico, selección de pizzas y combos por pasos, sistema de delivery personalizado",
+        image: "/images/escandalosos.mov",
+        url: "https://escandalosospizzas.cl/",
+        tech: ["React", "Node.js", "E-commerce"],
+        results: [
+          "Selección por pasos intuitiva",
+          "Sistema de delivery personalizado",
+          "Gestión de pedidos en tiempo real"
+        ]
+      },
+      {
+        id: 4,
+        title: "Tactical Outdoor",
+        description: "E-commerce duo de equipo táctico y outdoor con control de modo para cambiar toda la web",
+        image: "/images/tacticaloutdoor.MP4",
+        url: "https://tacticaloutdoor.cl/",
+        tech: ["React", "Modo Dual", "E-commerce"],
+        results: [
+          "Sistema de modo dual (Táctico/Outdoor)",
+          "Cambio completo de tema y productos",
+          "Gestión de inventario unificada"
+        ]
+      },
+      {
+        id: 7,
+        title: "Mamasous",
+        description: "E-commerce gastronómico en Shopify",
+        image: "/images/mamasous.MP4",
+        url: "https://mamasous.cl/",
+        tech: ["Shopify", "E-commerce", "Gastronomía"],
+        results: [
+          "Tienda online completa en Shopify",
+          "Catálogo de productos gastronómicos",
+          "Sistema de pagos integrado"
+        ]
+      },
+      {
+        id: 10,
+        title: "Rey Piscinas",
+        description: "E-commerce con sistema de cotizador personalizado para piscinas",
+        image: "/images/reypiscinas.mov",
+        url: "https://reypiscinas.cl/",
+        tech: ["React", "E-commerce", "Cotizador"],
+        results: [
+          "E-commerce completo de piscinas",
+          "Cotizador personalizado online",
+          "Sistema de gestión de productos"
+        ]
+      },
+    ],
+    social: [
+      {
+        id: 14,
+        title: "Gestión de Redes Sociales",
+        description: "Servicio completo de gestión de redes sociales con contenido profesional y estrategia digital",
+        image: "/images/instagram.MP4",
+        url: "#",
+        tech: ["Instagram", "Facebook", "Content Strategy"],
+        results: [
+          "Creación de contenido profesional",
+          "Estrategia de crecimiento orgánico",
+          "Análisis y reportes mensuales"
+        ]
+      },
+    ]
+  };
+
+  const projects = projectsByCategory[activeCategory as keyof typeof projectsByCategory];
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -1146,12 +1168,46 @@ function PortfolioSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#111111] mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#111111] mb-4">
             Portafolio
           </h2>
-          <p className="text-2xl md:text-3xl text-[#111111]" style={{ fontFamily: 'Work Sans, sans-serif' }}>
+          <p className="text-2xl md:text-3xl text-[#111111] mb-8">
             Nuestros trabajos
           </p>
+
+          {/* Category Filters */}
+          <div className="flex justify-center gap-4 flex-wrap">
+            <button
+              onClick={() => setActiveCategory('web')}
+              className={`px-6 py-3 rounded-full font-semibold transition-all ${
+                activeCategory === 'web'
+                  ? 'bg-[#7B34CD] text-white shadow-lg'
+                  : 'bg-white text-[#111111] hover:bg-gray-100'
+              }`}
+            >
+              Páginas Web
+            </button>
+            <button
+              onClick={() => setActiveCategory('ecommerce')}
+              className={`px-6 py-3 rounded-full font-semibold transition-all ${
+                activeCategory === 'ecommerce'
+                  ? 'bg-[#7B34CD] text-white shadow-lg'
+                  : 'bg-white text-[#111111] hover:bg-gray-100'
+              }`}
+            >
+              E-commerce
+            </button>
+            <button
+              onClick={() => setActiveCategory('social')}
+              className={`px-6 py-3 rounded-full font-semibold transition-all ${
+                activeCategory === 'social'
+                  ? 'bg-[#7B34CD] text-white shadow-lg'
+                  : 'bg-white text-[#111111] hover:bg-gray-100'
+              }`}
+            >
+              Redes Sociales
+            </button>
+          </div>
         </motion.div>
 
         {/* Horizontal Scroll Container */}
