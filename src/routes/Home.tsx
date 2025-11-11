@@ -1057,6 +1057,58 @@ function PortfolioSection() {
         "Formulario de cotización"
       ]
     },
+    {
+      id: 9,
+      title: "Wings",
+      description: "Página web profesional enlazada con Angendra Pro para gestión integral",
+      image: "/images/wings.MP4",
+      url: "https://wings.cl/",
+      tech: ["React", "Angendra Pro", "Integración"],
+      results: [
+        "Integración con sistema Angendra Pro",
+        "Gestión integral automatizada",
+        "Diseño profesional y funcional"
+      ]
+    },
+    {
+      id: 10,
+      title: "Rey Piscinas",
+      description: "E-commerce con sistema de cotizador personalizado para piscinas",
+      image: "/images/reypiscinas.mov",
+      url: "https://reypiscinas.cl/",
+      tech: ["React", "E-commerce", "Cotizador"],
+      results: [
+        "E-commerce completo de piscinas",
+        "Cotizador personalizado online",
+        "Sistema de gestión de productos"
+      ]
+    },
+    {
+      id: 11,
+      title: "Grúas JPV",
+      description: "Página web profesional para servicios de grúas",
+      image: "/images/gruas.mov",
+      url: "https://gruasjpv.cl/",
+      tech: ["WordPress", "Diseño Web", "SEO"],
+      results: [
+        "Diseño profesional y corporativo",
+        "Información de servicios clara",
+        "Formulario de contacto optimizado"
+      ]
+    },
+    {
+      id: 12,
+      title: "Morgan Cauchos",
+      description: "E-commerce de cauchos y neumáticos",
+      image: "/images/morgancauchos.MP4",
+      url: "https://morgancauchos.cl/",
+      tech: ["WordPress", "WooCommerce", "E-commerce"],
+      results: [
+        "Tienda online de cauchos",
+        "Catálogo de productos completo",
+        "Sistema de búsqueda avanzado"
+      ]
+    },
   ];
 
   const scroll = (direction: 'left' | 'right') => {
