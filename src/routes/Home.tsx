@@ -1270,31 +1270,34 @@ function PortfolioSection() {
           <div className="flex justify-center gap-4 flex-wrap">
             <button
               onClick={() => setActiveCategory('web')}
-              className={`px-6 py-3 rounded-full font-semibold transition-all ${
+              className={`px-8 py-4 font-bold text-lg transition-all transform -rotate-2 hover:rotate-0 ${
                 activeCategory === 'web'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
                   : 'bg-white text-[#111111] hover:bg-gray-100'
               }`}
+              style={{ border: '3px solid #000000' }}
             >
               Páginas Web
             </button>
             <button
               onClick={() => setActiveCategory('ecommerce')}
-              className={`px-6 py-3 rounded-full font-semibold transition-all ${
+              className={`px-8 py-4 font-bold text-lg transition-all transform rotate-1 hover:rotate-0 ${
                 activeCategory === 'ecommerce'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
                   : 'bg-white text-[#111111] hover:bg-gray-100'
               }`}
+              style={{ border: '3px solid #000000' }}
             >
               E-commerce
             </button>
             <button
               onClick={() => setActiveCategory('social')}
-              className={`px-6 py-3 rounded-full font-semibold transition-all ${
+              className={`px-8 py-4 font-bold text-lg transition-all transform -rotate-1 hover:rotate-0 ${
                 activeCategory === 'social'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
                   : 'bg-white text-[#111111] hover:bg-gray-100'
               }`}
+              style={{ border: '3px solid #000000' }}
             >
               Redes Sociales
             </button>
