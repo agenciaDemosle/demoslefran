@@ -7,106 +7,106 @@ export interface StaticReview {
 
 export const staticReviews: StaticReview[] = [
   {
-    author_name: "Pablo Cerda Luengo",
+    author_name: "Piscinas AS Revestimiento",
     rating: 5,
-    text: "Excelente servicio, muy buena atención, buenos profesionales y preocupados de realizar una excelente pega. Son muy rápidos en sus respuestas. 100% recomendables sin lugar a dudas.",
-    relative_time_description: "hace 4 semanas"
+    text: "Quiero agradecer a agencia démosle por su excelente trabajo en la creación de mi página web. Desde el primer momento demostraron un alto nivel de profesionalismo, compromiso y dedicación. Cumplieron con los plazos, entendieron perfectamente lo que necesitaba para mi negocio y superaron mis expectativas con el resultado final. 100% recomendados por su calidad y atención personalizada.",
+    relative_time_description: "hace 4 días"
   },
   {
-    author_name: "Alejandra Perez Perez",
+    author_name: "Felipe Arias Beltran",
     rating: 5,
-    text: "100% recomendable, súper comprometidos con su trabajo, muy buenos profesionales y amables. Muchas gracias!",
-    relative_time_description: "hace 1 mes"
+    text: "Excelente experiencia en su servicio. Con disposición a la buena y profesional comunicación. Felicidades!! Éxito!",
+    relative_time_description: "hace 5 días"
   },
   {
-    author_name: "Bastian Vega",
+    author_name: "Grúas JPV",
     rating: 5,
-    text: "Los mejores en lo que hacen. Muy eficientes, profesionales. Trabajan súper rápido. El tiempo de respuesta ante una urgencia es increíble. Son unos crack y cada peso vale la pena.",
+    text: "Excelente servicio de publicidad, me ayudaron a aumentar mi visibilidad y ventas. Muy recomendable",
     relative_time_description: "hace 3 semanas"
   },
   {
-    author_name: "Raúl Vilches",
+    author_name: "Fumigaciones Lourdes",
     rating: 5,
-    text: "Profesionales de primera linea. Ofrecen un servicio integral y soporte cuando se requiere. Diseño y creatividad top. Recomendables al 100%.",
-    relative_time_description: "hace 4 semanas"
+    text: "Exelente atencion logramos una pagina, agradable visualmente, con contenidos muy bien realizados 100% recomendables",
+    relative_time_description: "hace 5 semanas"
   },
   {
-    author_name: "Diego Andres Olivares Silva",
+    author_name: "Rocio Viviana Provoste Rivas",
     rating: 5,
-    text: "Profesionales de verdad, me ayudaron bastante en el levantamiento de mi proyecto, además de trabajar con mucha transparencia. Altamente recomendado...",
-    relative_time_description: "hace 1 mes"
+    text: "No podría haber encontrado un mejor lugar para crear la página web que tenía en mente. Desde el primer momento me sentí escuchada y acompañada en cada paso del proceso. No me ofrecieron solo paquetes predeterminados, sino una experiencia personalizada, con comunicación constante, asesoría y un profesionalismo que se nota en cada detalle. Destaco especialmente su paciencia, empatía y la forma en que se involucran para potenciar la marca, haciéndote sentir que tu proyecto también es importante para ellos.",
+    relative_time_description: "hace 7 semanas"
   },
   {
-    author_name: "Matias Mancilla",
+    author_name: "Luciano Duarte",
     rating: 5,
-    text: "Muy buenos. Si quieres confiar en tu marca háblale a ellos. Te ayudan con tu empresa y además te dan muchas ideas y son súper innovadores.",
-    relative_time_description: "hace 2 meses"
+    text: "Buena experiencia, rapidez y buena atención, siempre a un paso adelante.. recomendados!",
+    relative_time_description: "hace 10 semanas"
   },
   {
-    author_name: "Fernando Antonio Vera Miranda",
+    author_name: "Jennifer Rebolledo",
     rating: 5,
-    text: "Excelente servicio y atención a los clientes, trabajo prolijo, preocupados de entregar a tiempo y conforme a los requerimientos de la marca. Muchas gracias Demosle.",
-    relative_time_description: "hace 2 meses"
+    text: "Es una excelente mujer.. a mí me tuvo mucha paciencia y siempre escuchó sugerencias. Gracias por todo bella..",
+    relative_time_description: "hace 10 semanas"
   },
   {
-    author_name: "Felipe Garrido",
+    author_name: "Rodrigo Ortega Rojas",
     rating: 5,
-    text: "El mejor equipo de desarrollo de aplicaciones. Profesionales y con un soporte las 24h. Todo se hace con estándares de calidad a nivel internacional. Muy bien!!!!",
-    relative_time_description: "hace 2 meses"
-  },
-  {
-    author_name: "Miguel Miranda",
-    rating: 5,
-    text: "Un excelente servicio, muy rápido ágil y eficaz. Me ayudaron con la creación de mi página web. 100% recomendado.",
-    relative_time_description: "hace 3 meses"
-  },
-  {
-    author_name: "C O",
-    rating: 5,
-    text: "Totalmente recomendados. Son rápidos, muy profesionales y con excelente servicio. Siempre atento y preocupado de cumplir con los tiempos. Lejos lo mejor del mercado.",
-    relative_time_description: "hace 3 meses"
-  },
-  {
-    author_name: "Eduardo Hernandez Padilla",
-    rating: 5,
-    text: "Excelentes en todo ámbito, su compromiso, responsabilidad y rapidez de desarrollo de proyectos es insuperable, los recomiendo 100%.",
-    relative_time_description: "hace 3 meses"
-  },
-  {
-    author_name: "Martin Lezana Rocha",
-    rating: 5,
-    text: "Muy recomendable, me crearon mi página web para mi negocio y quedó de excelente calidad. Además el precio increíble y el trato súper profesional. Super recomendados!!",
-    relative_time_description: "hace 4 meses"
-  },
-  {
-    author_name: "Miguel Ramírez",
-    rating: 5,
-    text: "Súper profesionales, se nota el compromiso y dedicación por hacer un buen trabajo, y los resultados hablan por si solos. 100% recomendado!",
-    relative_time_description: "hace 5 meses"
+    text: "Excelente la voluntad y trabajo del equipo de demosle, no podría estar mas contento con el servicio entregado, los plazos super razonables para todas las exigencias que puse, me ayudaron a desarrollar exactamente lo que tenia en mente, si o si los vuelvo a contratar para los pasos futuros que me faltan.",
+    relative_time_description: "hace 10 semanas"
   },
   {
     author_name: "Claudio Alonso Cotroneo",
     rating: 5,
     text: "Fantástico servicio, rápidos, amables, destacables más allá de lo que me podía esperar, ha sido una emocionante experiencia y han dejado muy en alto las expectativas que tenía, totalmente recomendado.",
-    relative_time_description: "hace 2 meses"
+    relative_time_description: "hace 12 semanas"
   },
   {
-    author_name: "Constanza Díaz",
+    author_name: "Angeles Spa",
     rating: 5,
-    text: "Excelente trabajo, muy profesionales y creativos. Cumplieron con todos los plazos y superaron nuestras expectativas. Totalmente recomendados!",
-    relative_time_description: "hace 1 mes"
+    text: "Excelente servicio, desde el primer día y hasta que estuvo la página para mi negocio lista. Atención rápida, cercana y profesional.",
+    relative_time_description: "hace 12 semanas"
   },
   {
-    author_name: "Roberto Silva",
+    author_name: "Doris Lopez",
     rating: 5,
-    text: "Increíble servicio. Me ayudaron a digitalizar mi negocio completamente. Son muy innovadores y siempre están dispuestos a ayudar. Los mejores!",
-    relative_time_description: "hace 2 semanas"
+    text: "Muchas gracias, es mi primera página y quedó mejor de lo que esperaba.",
+    relative_time_description: "hace 13 semanas"
   },
   {
-    author_name: "Carolina Muñoz",
+    author_name: "Emerson Alexandro",
     rating: 5,
-    text: "Muy contentos con el resultado. Son rápidos, eficientes y el producto final es de excelente calidad. Sin duda volveremos a trabajar con ellos.",
-    relative_time_description: "hace 3 semanas"
+    text: "Muy buen servicio, hicieron mi web tal como la necesitaba y a un excelente precio.",
+    relative_time_description: "hace 14 semanas"
+  },
+  {
+    author_name: "Andrés Andrade",
+    rating: 5,
+    text: "Muy buen servicio, muy preocupada, 100% recomiendo. Prácticamente dejo todo en sus manos muy muy bien. Muy agradecido!!!",
+    relative_time_description: "hace 14 semanas"
+  },
+  {
+    author_name: "Seba Andres",
+    rating: 5,
+    text: "Excelente servicio, bastante útil",
+    relative_time_description: "hace 14 semanas"
+  },
+  {
+    author_name: "Alejandra Guerrero Sasso",
+    rating: 5,
+    text: "Muy buen servicio, día a día me siguen aumentando las ventas. Gracias los recomendaré de todas maneras.",
+    relative_time_description: "hace 14 semanas"
+  },
+  {
+    author_name: "Gonzalo Honorato",
+    rating: 5,
+    text: "Buen servicio, han diseñado nuestro landing para nuestro Saas. Innovación de vanguardia",
+    relative_time_description: "hace 14 semanas"
+  },
+  {
+    author_name: "Escandalosos Pizza",
+    rating: 5,
+    text: "Excelente servicios, realizaron nuestra página web y llevan el marketing de nuestra empresa, impecable!",
+    relative_time_description: "hace 14 semanas"
   }
 ];
 

@@ -788,42 +788,51 @@ export function Home() {
             ¿Qué dicen nuestros clientes?
           </motion.h2>
 
-          {/* Reviews Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {staticReviews.slice(0, 6).map((review, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
-              >
-                {/* Stars */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-5 h-5 ${i < review.rating ? 'fill-[#FFC107] text-[#FFC107]' : 'text-gray-300'}`}
-                    />
-                  ))}
-                </div>
-                {/* Review Text */}
-                <p className="text-gray-700 mb-4 leading-relaxed text-base line-clamp-4">
-                  "{review.text}"
-                </p>
-                {/* Author */}
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#7B34CD] flex items-center justify-center text-white font-bold">
-                    {review.author_name.charAt(0)}
+          {/* Reviews Horizontal Scroll */}
+          <div className="relative">
+            <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-[#7B34CD] scrollbar-track-gray-100">
+              {staticReviews.map((review, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.05 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  className="flex-none w-[350px] bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100 snap-start"
+                >
+                  {/* Stars */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-5 h-5 ${i < review.rating ? 'fill-[#FFC107] text-[#FFC107]' : 'text-gray-300'}`}
+                      />
+                    ))}
                   </div>
-                  <div>
-                    <p className="text-gray-900 font-bold">{review.author_name}</p>
-                    <p className="text-gray-500 text-sm">{review.relative_time_description} • Google</p>
+                  {/* Review Text */}
+                  <p className="text-gray-700 mb-4 leading-relaxed text-base line-clamp-6">
+                    "{review.text}"
+                  </p>
+                  {/* Author */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[#7B34CD] flex items-center justify-center text-white font-bold text-sm">
+                      {review.author_name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-gray-900 font-bold text-sm">{review.author_name}</p>
+                      <p className="text-gray-500 text-xs">{review.relative_time_description} • Google</p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="flex justify-center items-center gap-2 mt-4">
+              <ChevronLeft className="w-5 h-5 text-gray-400" />
+              <span className="text-sm text-gray-500">Desliza para ver más reseñas</span>
+              <ChevronRight className="w-5 h-5 text-gray-400" />
+            </div>
           </div>
 
           {/* Link to Google Reviews */}
