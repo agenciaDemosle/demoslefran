@@ -933,7 +933,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
             {isSocialMedia && (
               <button
                 onClick={toggleMute}
-                className="absolute bottom-4 right-4 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all z-10"
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all z-10"
                 aria-label={isMuted ? 'Activar audio' : 'Desactivar audio'}
               >
                 {isMuted ? (
