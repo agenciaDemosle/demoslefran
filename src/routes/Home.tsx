@@ -872,6 +872,8 @@ export function Home() {
 // Project Card Component
 function ProjectCard({ project, index }: { project: any; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const isSocialMedia = project.category === 'social';
 
   const handleMouseEnter = () => {
     if (videoRef.current) {
@@ -883,6 +885,15 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
     }
   };
 
@@ -907,16 +918,37 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
       }}
     >
       {/* Project Image - Vertical/Tall */}
-      <div className="relative bg-gray-200 overflow-hidden" style={{ aspectRatio: '3/4', height: '400px' }}>
+      <div className="relative bg-gray-200 overflow-hidden" style={{ aspectRatio: isSocialMedia ? '9/16' : '3/4', height: isSocialMedia ? '600px' : '400px' }}>
         {project.image.endsWith('.MP4') || project.image.endsWith('.mov') ? (
-          <video
-            ref={videoRef}
-            src={project.image}
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          />
+          <>
+            <video
+              ref={videoRef}
+              src={project.image}
+              loop
+              muted={isMuted}
+              playsInline
+              className="w-full h-full object-cover"
+            />
+            {/* Audio Control Button - Only for social media */}
+            {isSocialMedia && (
+              <button
+                onClick={toggleMute}
+                className="absolute bottom-4 right-4 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all z-10"
+                aria-label={isMuted ? 'Activar audio' : 'Desactivar audio'}
+              >
+                {isMuted ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                )}
+              </button>
+            )}
+          </>
         ) : (
           <>
             <div className="absolute inset-0 bg-gradient-to-br from-[#7B34CD]/30 to-[#FF00A8]/30" />
@@ -939,11 +971,13 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
         </div>
       )}
 
-      {/* Project Info */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
-        <p className="text-sm text-gray-600 line-clamp-2">{project.description}</p>
-      </div>
+      {/* Project Info - Hide for social media */}
+      {!isSocialMedia && (
+        <div className="p-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+          <p className="text-sm text-gray-600 line-clamp-2">{project.description}</p>
+        </div>
+      )}
     </motion.a>
   );
 }
@@ -1131,15 +1165,22 @@ function PortfolioSection() {
       {
         id: 14,
         title: "Gestión de Redes Sociales",
-        description: "Servicio completo de gestión de redes sociales con contenido profesional y estrategia digital",
+        description: "",
         image: "/images/instagram.MP4",
         url: "#",
+        category: "social",
         tech: ["Instagram", "Facebook", "Content Strategy"],
-        results: [
-          "Creación de contenido profesional",
-          "Estrategia de crecimiento orgánico",
-          "Análisis y reportes mensuales"
-        ]
+        results: []
+      },
+      {
+        id: 15,
+        title: "Gestión de Redes Sociales",
+        description: "",
+        image: "/images/instagram2.mov",
+        url: "#",
+        category: "social",
+        tech: ["Instagram", "Facebook", "Content Strategy"],
+        results: []
       },
     ]
   };
