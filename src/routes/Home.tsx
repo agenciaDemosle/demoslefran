@@ -1273,7 +1273,7 @@ function PortfolioSection() {
               className={`px-8 py-4 font-bold text-lg transition-all transform -rotate-2 hover:rotate-0 ${
                 activeCategory === 'web'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
-                  : 'bg-white text-[#111111] hover:bg-gray-100'
+                  : 'bg-[#FF00A8] text-white hover:bg-[#e0009a]'
               }`}
               style={{ border: '3px solid #000000' }}
             >
@@ -1284,7 +1284,7 @@ function PortfolioSection() {
               className={`px-8 py-4 font-bold text-lg transition-all transform rotate-1 hover:rotate-0 ${
                 activeCategory === 'ecommerce'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
-                  : 'bg-white text-[#111111] hover:bg-gray-100'
+                  : 'bg-[#FF00A8] text-white hover:bg-[#e0009a]'
               }`}
               style={{ border: '3px solid #000000' }}
             >
@@ -1295,7 +1295,7 @@ function PortfolioSection() {
               className={`px-8 py-4 font-bold text-lg transition-all transform -rotate-1 hover:rotate-0 ${
                 activeCategory === 'social'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
-                  : 'bg-white text-[#111111] hover:bg-gray-100'
+                  : 'bg-[#FF00A8] text-white hover:bg-[#e0009a]'
               }`}
               style={{ border: '3px solid #000000' }}
             >
