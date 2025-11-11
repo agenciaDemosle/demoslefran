@@ -1182,6 +1182,56 @@ function PortfolioSection() {
         tech: ["Instagram", "Facebook", "Content Strategy"],
         results: []
       },
+      {
+        id: 16,
+        title: "Gestión de Redes Sociales",
+        description: "",
+        image: "/images/instagram3.mov",
+        url: "#",
+        category: "social",
+        tech: ["Instagram", "Facebook", "Content Strategy"],
+        results: []
+      },
+      {
+        id: 17,
+        title: "Gestión de Redes Sociales",
+        description: "",
+        image: "/images/instagram4.mov",
+        url: "#",
+        category: "social",
+        tech: ["Instagram", "Facebook", "Content Strategy"],
+        results: []
+      },
+      {
+        id: 18,
+        title: "Gestión de Redes Sociales",
+        description: "",
+        image: "/images/instagram5.MP4",
+        url: "#",
+        category: "social",
+        tech: ["Instagram", "Facebook", "Content Strategy"],
+        results: []
+      },
+      {
+        id: 19,
+        title: "Gestión de Redes Sociales",
+        description: "",
+        image: "/images/instagram6.MP4",
+        url: "#",
+        category: "social",
+        tech: ["Instagram", "Facebook", "Content Strategy"],
+        results: []
+      },
+      {
+        id: 20,
+        title: "Gestión de Redes Sociales",
+        description: "",
+        image: "/images/instagram7.MP4",
+        url: "#",
+        category: "social",
+        tech: ["Instagram", "Facebook", "Content Strategy"],
+        results: []
+      },
     ]
   };
 
