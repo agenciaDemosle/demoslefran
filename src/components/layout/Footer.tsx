@@ -135,9 +135,22 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Demosle. Todos los derechos reservados.
-            </p>
+            <div className="flex flex-col items-center md:items-start space-y-2">
+              <p className="text-sm text-gray-400">
+                © {new Date().getFullYear()} Demosle. Todos los derechos reservados.
+              </p>
+              <p className="text-xs text-gray-500">
+                Creado por{' '}
+                <a
+                  href="https://demosle.cl"
+                  className="text-gray-400 hover:text-white transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  demosle.cl
+                </a>
+              </p>
+            </div>
             <div className="flex space-x-6">
               {navigation.legal.map((item) => (
                 <Link

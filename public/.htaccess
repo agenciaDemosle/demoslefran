@@ -1,9 +1,14 @@
 # --- Engine & Encoding ---
 RewriteEngine On
+RewriteBase /
 
-# --- Force HTTPS (comentado por defecto, descomentar si es necesario) ---
-# RewriteCond %{HTTPS} !=on
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# --- Force HTTPS ---
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- Redirect www to non-www ---
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
 # --- Handle API passthrough (permite acceso directo a /api sin reescribir) ---
 RewriteCond %{REQUEST_URI} ^/api/ [NC]
@@ -65,6 +70,12 @@ RewriteRule . /index.html [L]
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/ico "access plus 1 year"
 
+  # Videos
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/webm "access plus 1 year"
+  ExpiresByType video/mpeg "access plus 1 year"
+  ExpiresByType video/quicktime "access plus 1 year"
+
   # CSS and JavaScript
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
@@ -80,7 +91,7 @@ RewriteRule . /index.html [L]
   ExpiresByType text/html "access plus 1 hour"
 </IfModule>
 
-<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot)$">
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot|mp4|webm|mpeg|mov)$">
   <IfModule mod_headers.c>
     Header set Cache-Control "public, immutable"
   </IfModule>

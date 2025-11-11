@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import {
@@ -151,7 +150,7 @@ export function Home() {
 
               {/* CTA principal con flecha decorativa */}
               <div className="relative inline-block">
-                <Link to="/contacto">
+                <a href="#cotizador">
                   <button
                     onClick={() => trackCTAClick('Cotizar', 'Hero')}
                     className="group relative bg-[#7b34cd] hover:bg-[#6a2db8] text-white font-bold text-lg px-8 py-3 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center gap-4"
@@ -161,7 +160,7 @@ export function Home() {
                     </div>
                     <span>Cotizar</span>
                   </button>
-                </Link>
+                </a>
 
                 {/* Flecha curva decorativa */}
                 <div className="absolute -bottom-16 left-32 hidden lg:block">
@@ -404,16 +403,17 @@ export function Home() {
                   transition={{ duration: 0.6, delay: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  <Link to="/contacto">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => trackCTAClick('Cotizar web + campañas', 'Connected System')}
-                      className="bg-black text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-900 transition-colors duration-300 shadow-xl"
-                    >
-                      Cotizar web + campañas
-                    </motion.button>
-                  </Link>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      trackCTAClick('Cotizar web + campañas', 'Connected System');
+                      window.open('https://wa.me/56966354128?text=Hola!%20Me%20interesa%20cotizar%20sitios%20web%20y%20campa%C3%B1as', '_blank');
+                    }}
+                    className="bg-black text-white px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-900 transition-colors duration-300 shadow-xl cursor-pointer"
+                  >
+                    Cotizar web + campañas
+                  </motion.button>
                 </motion.div>
               </motion.div>
             </div>
@@ -512,16 +512,17 @@ export function Home() {
                   transition={{ duration: 0.6, delay: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  <Link to="/contacto">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => trackCTAClick('Cotizar campañas', 'Ads Section')}
-                      className="bg-white text-[#7B34CD] px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-100 transition-colors duration-300 shadow-xl"
-                    >
-                      Cotizar campañas
-                    </motion.button>
-                  </Link>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      trackCTAClick('Cotizar campañas', 'Ads Section');
+                      window.open('https://wa.me/56966354128?text=Hola!%20Me%20interesa%20cotizar%20campa%C3%B1as%20publicitarias', '_blank');
+                    }}
+                    className="bg-white text-[#7B34CD] px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-100 transition-colors duration-300 shadow-xl cursor-pointer"
+                  >
+                    Cotizar campañas
+                  </motion.button>
                 </motion.div>
               </motion.div>
             </div>
@@ -594,16 +595,17 @@ export function Home() {
                   transition={{ duration: 0.6, delay: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  <Link to="/contacto">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => trackCTAClick('Cotizar redes sociales', 'Social Media Section')}
-                      className="bg-white text-[#FF6B6B] px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-100 transition-colors duration-300 shadow-xl"
-                    >
-                      Cotizar redes sociales
-                    </motion.button>
-                  </Link>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      trackCTAClick('Cotizar redes sociales', 'Social Media Section');
+                      window.open('https://wa.me/56966354128?text=Hola!%20Me%20interesa%20cotizar%20redes%20sociales', '_blank');
+                    }}
+                    className="bg-white text-[#FF6B6B] px-10 py-5 rounded-full text-lg font-bold hover:bg-gray-100 transition-colors duration-300 shadow-xl cursor-pointer"
+                  >
+                    Cotizar redes sociales
+                  </motion.button>
                 </motion.div>
               </motion.div>
             </div>
@@ -685,6 +687,7 @@ export function Home() {
                 <img
                   src="/images/javier.png"
                   alt="Javier"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
 
@@ -709,6 +712,7 @@ export function Home() {
                 <img
                   src="/images/fran.png"
                   alt="Fran"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
 
@@ -730,7 +734,7 @@ export function Home() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <Link to="/contacto">
+            <a href="#cotizador">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -740,7 +744,7 @@ export function Home() {
                 <span>Trabajemos juntos</span>
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" strokeWidth={2.5} />
               </motion.button>
-            </Link>
+            </a>
           </motion.div>
 
         </div>
@@ -874,6 +878,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const isSocialMedia = project.category === 'social';
+  const isIdentidad = project.category === 'identidad';
 
   const handleMouseEnter = () => {
     if (videoRef.current) {
@@ -949,6 +954,13 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
               </button>
             )}
           </>
+        ) : project.image.endsWith('.PNG') || project.image.endsWith('.png') || project.image.endsWith('.jpg') || project.image.endsWith('.jpeg') ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
         ) : (
           <>
             <div className="absolute inset-0 bg-gradient-to-br from-[#7B34CD]/30 to-[#FF00A8]/30" />
@@ -971,8 +983,8 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
         </div>
       )}
 
-      {/* Project Info - Hide for social media */}
-      {!isSocialMedia && (
+      {/* Project Info - Hide for social media and identidad */}
+      {!isSocialMedia && !isIdentidad && (
         <div className="p-6">
           <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
           <p className="text-sm text-gray-600 line-clamp-2">{project.description}</p>
@@ -1232,6 +1244,38 @@ function PortfolioSection() {
         tech: ["Instagram", "Facebook", "Content Strategy"],
         results: []
       },
+    ],
+    identidad: [
+      {
+        id: 21,
+        title: "Identidad Visual",
+        description: "",
+        image: "/images/identidad1.PNG",
+        url: "#",
+        category: "identidad",
+        tech: ["Branding", "Diseño Gráfico", "Identidad Visual"],
+        results: []
+      },
+      {
+        id: 22,
+        title: "Identidad Visual",
+        description: "",
+        image: "/images/identidad2.PNG",
+        url: "#",
+        category: "identidad",
+        tech: ["Branding", "Diseño Gráfico", "Identidad Visual"],
+        results: []
+      },
+      {
+        id: 23,
+        title: "Identidad Visual",
+        description: "",
+        image: "/images/identidad3.PNG",
+        url: "#",
+        category: "identidad",
+        tech: ["Branding", "Diseño Gráfico", "Identidad Visual"],
+        results: []
+      },
     ]
   };
 
@@ -1275,7 +1319,6 @@ function PortfolioSection() {
                   ? 'bg-[#7B34CD] text-white shadow-lg'
                   : 'bg-[#FF00A8] text-white hover:bg-[#e0009a]'
               }`}
-              style={{ border: '3px solid #000000' }}
             >
               Páginas Web
             </button>
@@ -1286,7 +1329,6 @@ function PortfolioSection() {
                   ? 'bg-[#7B34CD] text-white shadow-lg'
                   : 'bg-[#FF00A8] text-white hover:bg-[#e0009a]'
               }`}
-              style={{ border: '3px solid #000000' }}
             >
               E-commerce
             </button>
@@ -1297,9 +1339,18 @@ function PortfolioSection() {
                   ? 'bg-[#7B34CD] text-white shadow-lg'
                   : 'bg-[#FF00A8] text-white hover:bg-[#e0009a]'
               }`}
-              style={{ border: '3px solid #000000' }}
             >
               Redes Sociales
+            </button>
+            <button
+              onClick={() => setActiveCategory('identidad')}
+              className={`px-8 py-4 font-bold text-lg transition-all transform rotate-2 hover:rotate-0 ${
+                activeCategory === 'identidad'
+                  ? 'bg-[#7B34CD] text-white shadow-lg'
+                  : 'bg-[#FF00A8] text-white hover:bg-[#e0009a]'
+              }`}
+            >
+              Identidad Visual
             </button>
           </div>
         </motion.div>

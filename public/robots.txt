@@ -3,11 +3,18 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://franciscal40.sg-host.com/sitemap.xml
+Sitemap: https://demosle.cl/sitemap.xml
 
 # Directorios permitidos
 Allow: /images/
 Allow: /assets/
 
-# Crawl delay (opcional, para evitar sobrecarga)
-Crawl-delay: 1
+# Bots específicos permitidos
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+User-agent: Bingbot
+Allow: /

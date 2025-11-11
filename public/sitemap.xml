@@ -6,64 +6,24 @@
 
   <!-- Página Principal -->
   <url>
-    <loc>https://franciscal40.sg-host.com/</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://demosle.cl/</loc>
+    <lastmod>2025-11-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Sección Servicios -->
-  <url>
-    <loc>https://franciscal40.sg-host.com/#servicios</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Sección Nosotros -->
-  <url>
-    <loc>https://franciscal40.sg-host.com/#nosotros</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Sección Portafolio -->
-  <url>
-    <loc>https://franciscal40.sg-host.com/#portafolio</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Sección Cotizador -->
-  <url>
-    <loc>https://franciscal40.sg-host.com/#cotizador</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Sección FAQ -->
-  <url>
-    <loc>https://franciscal40.sg-host.com/#faq</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <!-- Política de Privacidad -->
   <url>
-    <loc>https://franciscal40.sg-host.com/privacidad</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://demosle.cl/privacidad</loc>
+    <lastmod>2025-11-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Términos y Condiciones -->
   <url>
-    <loc>https://franciscal40.sg-host.com/terminos</loc>
-    <lastmod>2025-01-10</lastmod>
+    <loc>https://demosle.cl/terminos</loc>
+    <lastmod>2025-11-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

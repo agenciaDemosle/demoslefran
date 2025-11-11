@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import type { SEOConfig } from '@/types';
 
-const siteUrl = import.meta.env.VITE_SITE_URL || 'https://franciscal40.sg-host.com';
+const siteUrl = import.meta.env.VITE_SITE_URL || 'https://demosle.cl';
 const siteName = import.meta.env.VITE_SITE_NAME || 'Demosle';
 
 interface SEOProps extends Partial<SEOConfig> {

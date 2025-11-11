@@ -5,7 +5,8 @@ import { Toaster } from 'react-hot-toast';
 import { queryClient } from '@/lib/queryClient';
 import { Layout } from '@/components/layout/Layout';
 import { Home } from '@/routes/Home';
-import { Contacto } from '@/routes/Contacto';
+import { Terminos } from '@/routes/Terminos';
+import { Privacidad } from '@/routes/Privacidad';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="contacto" element={<Contacto />} />
+              <Route path="terminos" element={<Terminos />} />
+              <Route path="privacidad" element={<Privacidad />} />
             </Route>
           </Routes>
         </BrowserRouter>
