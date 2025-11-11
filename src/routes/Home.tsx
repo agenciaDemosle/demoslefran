@@ -1109,6 +1109,19 @@ function PortfolioSection() {
         "Formulario de contacto optimizado"
       ]
     },
+    {
+      id: 13,
+      title: "Senby",
+      description: "Plataforma de logística con tracking de envíos en tiempo real y cotizador automático",
+      image: "/images/senby.MP4",
+      url: "https://senby.cl/",
+      tech: ["React", "Tracking", "Sistema de Cotización"],
+      results: [
+        "Sistema de tracking en tiempo real",
+        "Cotizador automático de envíos",
+        "Panel de gestión logística completo"
+      ]
+    },
   ];
 
   const scroll = (direction: 'left' | 'right') => {
