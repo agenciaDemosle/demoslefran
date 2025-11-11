@@ -1099,14 +1099,14 @@ function PortfolioSection() {
     {
       id: 12,
       title: "Morgan Cauchos",
-      description: "E-commerce de cauchos y neumáticos",
+      description: "Landing page profesional para venta de cauchos y neumáticos",
       image: "/images/morgancauchos.MP4",
       url: "https://morgancauchos.cl/",
-      tech: ["WordPress", "WooCommerce", "E-commerce"],
+      tech: ["WordPress", "Diseño Web", "SEO"],
       results: [
-        "Tienda online de cauchos",
-        "Catálogo de productos completo",
-        "Sistema de búsqueda avanzado"
+        "Página web profesional y moderna",
+        "Información clara de productos",
+        "Formulario de contacto optimizado"
       ]
     },
   ];
