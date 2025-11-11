@@ -1,0 +1,13 @@
+# robots.txt para Demosle
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://franciscal40.sg-host.com/sitemap.xml
+
+# Directorios permitidos
+Allow: /images/
+Allow: /assets/
+
+# Crawl delay (opcional, para evitar sobrecarga)
+Crawl-delay: 1

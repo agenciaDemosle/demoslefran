@@ -1,0 +1,602 @@
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {
+  ArrowRight,
+  TrendingUp,
+  Star,
+  Zap,
+  Target,
+  Code2,
+  BarChart3,
+  Megaphone,
+  Workflow,
+  MapPin,
+  Puzzle,
+  Sparkles,
+  LineChart,
+  CheckCircle2,
+  Rocket
+} from 'lucide-react';
+import { SEO } from '@/seo/SEOConfig';
+import { OrganizationSchema, WebSiteSchema } from '@/seo/JsonLd';
+import { Section } from '@/components/ui/Section';
+import { Button } from '@/components/ui/Button';
+import { trackCTAClick } from '@/hooks/useAnalytics';
+
+const services = [
+  {
+    title: 'WEB',
+    subtitle: 'Sistemas que venden',
+    description: 'Plataformas escalables que convierten visitas en clientes.',
+    href: '/web',
+  },
+  {
+    title: 'APPS',
+    subtitle: 'Productos digitales',
+    description: 'Aplicaciones móviles y web que tus usuarios aman.',
+    href: '/apps',
+  },
+  {
+    title: 'CREATIVE',
+    subtitle: 'Marcas memorables',
+    description: 'Branding e identidad visual que conecta y convierte.',
+    href: '/creative',
+  },
+];
+
+const methodSteps = [
+  {
+    number: '01',
+    title: 'Entendemos tu negocio',
+    description: 'Analizamos tu mercado, competencia y audiencia. Identificamos oportunidades reales de crecimiento antes de gastar un peso.',
+  },
+  {
+    number: '02',
+    title: 'Creamos la estrategia',
+    description: 'Diseñamos sistemas completos que conectan web, publicidad, contenido y automatización. Todo alineado a vender más.',
+  },
+  {
+    number: '03',
+    title: 'Medimos todo',
+    description: 'Cada acción se rastrea y optimiza. Sabes exactamente qué funciona, qué no, y dónde invertir para crecer.',
+  },
+];
+
+const metrics = [
+  { value: '10+', label: 'Años de experiencia' },
+  { value: '50+', label: 'Proyectos completados' },
+  { value: '98%', label: 'Clientes satisfechos' },
+  { value: '3x', label: 'ROI promedio' },
+];
+
+const testimonial = {
+  quote: 'Fantástico servicio, rápidos, amables, destacables más allá de lo que me podía esperar, ha sido una emocionante experiencia y han dejado muy en alto las expectativas que tenía, totalmente recomendado.',
+  author: 'Claudio Alonso Cotroneo',
+  company: 'thecotrostore.cl',
+};
+
+export function Home() {
+  return (
+    <>
+      <SEO
+        title="Creamos sistemas que venden"
+        description="No construimos piezas sueltas: conectamos web, redes, campañas, automatización y datos en una arquitectura medible que transforma clics en clientes."
+        url="/"
+      />
+      <OrganizationSchema />
+      <WebSiteSchema />
+
+      {/* Hero Section - Creative Studio Layout */}
+      <Section className="relative bg-black min-h-screen flex items-center overflow-hidden py-20 md:py-32 pt-32">
+
+        {/* Contenedor principal */}
+        <div className="relative w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+
+          {/* Grid principal - Izquierda texto / Derecha imagen */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+
+            {/* Columna Izquierda - Contenido principal */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-8 space-y-12"
+            >
+              {/* Titular gigante */}
+              <div className="space-y-4">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight" style={{ fontFamily: 'Outfit, Poppins, sans-serif' }}>
+                  <span className="block text-[#F8F7E5]">CREAMOS</span>
+                  <span className="block text-[#F8F7E5]">SISTEMAS</span>
+                  <span className="block text-[#F8F7E5]">QUE VENDEN</span>
+                </h1>
+              </div>
+
+              {/* Texto descriptivo */}
+              <p className="text-lg md:text-xl text-[#CFCFCF] leading-relaxed max-w-xl">
+                No solo diseñamos interfaces bonitas. Construimos sistemas completos que conectan tu marca con tus clientes, automatizan procesos y generan resultados medibles desde el día uno.
+              </p>
+
+              {/* CTA principal con flecha decorativa */}
+              <div className="relative inline-block">
+                <Link to="/contacto">
+                  <button
+                    onClick={() => trackCTAClick('Cotizar', 'Hero')}
+                    className="group relative bg-[#7b34cd] hover:bg-[#6a2db8] text-white font-bold text-lg px-8 py-3 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center gap-4"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                      <ArrowRight className="w-4 h-4 text-[#7b34cd]" strokeWidth={2.5} />
+                    </div>
+                    <span>Cotizar</span>
+                  </button>
+                </Link>
+
+                {/* Flecha curva decorativa */}
+                <div className="absolute -bottom-16 left-32 hidden lg:block">
+                  <svg width="100" height="60" viewBox="0 0 100 60" fill="none">
+                    <path d="M10 10 Q 50 50, 90 30" stroke="#C39AE9" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                    <path d="M85 25 L 90 30 L 85 35" stroke="#C39AE9" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+
+            </motion.div>
+
+            {/* Columna Derecha - Abanico de fotos */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:col-span-4 relative"
+            >
+              <div className="relative w-full max-w-md mx-auto h-[500px] flex items-center justify-center">
+                {/* Foto 3 - Atrás (más rotada) */}
+                <motion.div
+                  animate={{
+                    rotate: [-15, -12, -15],
+                    x: [-30, -25, -30],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute w-80 h-[420px] rounded-2xl overflow-hidden border-4 border-white shadow-2xl"
+                  style={{ zIndex: 1 }}
+                >
+                  <div className="w-full h-full bg-gradient-to-br from-pink-600 via-purple-600 to-indigo-700 flex items-center justify-center">
+                    <div className="text-center text-white/30">
+                      <Star className="w-16 h-16 mx-auto" />
+                      <p className="text-sm mt-2">Photo 3</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Foto 2 - Medio */}
+                <motion.div
+                  animate={{
+                    rotate: [-5, -2, -5],
+                    x: [-10, -5, -10],
+                  }}
+                  transition={{
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5
+                  }}
+                  className="absolute w-80 h-[420px] rounded-2xl overflow-hidden border-4 border-white shadow-2xl"
+                  style={{ zIndex: 2 }}
+                >
+                  <div className="w-full h-full bg-gradient-to-br from-purple-700 via-pink-600 to-orange-500 flex items-center justify-center">
+                    <div className="text-center text-white/30">
+                      <Sparkles className="w-16 h-16 mx-auto" />
+                      <p className="text-sm mt-2">Photo 2</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Foto 1 - Frente */}
+                <motion.div
+                  animate={{
+                    rotate: [5, 8, 5],
+                    x: [10, 15, 10],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
+                  }}
+                  whileHover={{ rotate: 0, x: 0, scale: 1.05 }}
+                  className="absolute w-80 h-[420px] rounded-2xl overflow-hidden border-4 border-[#D8B3F5] shadow-2xl cursor-pointer"
+                  style={{ zIndex: 3 }}
+                >
+                  <div className="w-full h-full bg-gradient-to-br from-purple-900 via-purple-700 to-pink-600 flex items-center justify-center">
+                    <div className="text-center text-white/40">
+                      <Rocket className="w-16 h-16 mx-auto" />
+                      <p className="text-sm mt-2">Photo 1</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </Section>
+
+      {/* Team Section - Minimalista */}
+      <Section className="relative py-24 md:py-40 overflow-hidden bg-white">
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+
+          {/* Título superior que abarca todo el ancho */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="mb-16 md:mb-20"
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display leading-[1.3] tracking-tight text-left">
+              <span className="font-black text-gray-900 block mb-4">SOMOS JAVIER Y FRAN,</span>
+              <span className="font-normal text-gray-600 text-2xl md:text-3xl lg:text-4xl block ml-0 md:ml-12 lg:ml-16">
+                los que estamos detrás de Demosle{' '}
+                <span className="text-[#7b34cd]">:)</span>
+              </span>
+            </h2>
+          </motion.div>
+
+          {/* Grid de 3 columnas: Foto - Texto - Foto */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+            {/* Columna Izquierda - Javier */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="lg:col-span-3 lg:-mt-16"
+            >
+              <div className="relative group">
+                {/* Foto Javier */}
+                <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                  <img
+                    src="/images/javier.png"
+                    alt="Javier - Co-founder Demosle"
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Overlay con nombre al hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/0 to-gray-900/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <h3 className="text-white font-bold text-xl mb-1">Javier</h3>
+                      <p className="text-white/90 text-sm">Estrategia & Tech</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Columna Central - Contenido */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="lg:col-span-6 space-y-8"
+            >
+              {/* Descripción clean con mejor espaciado */}
+              <div className="space-y-8 text-base md:text-lg lg:text-xl text-gray-600 leading-[1.9] max-w-4xl">
+                <p>
+                  Tú tienes un negocio, una idea o un proyecto que merece escalar. Y si estás aquí, probablemente ya probaste de todo: campañas que no miden, webs que no convierten o redes que se ven bien... pero no venden.
+                </p>
+                <p className="text-xl md:text-2xl font-medium text-gray-900">
+                  Tranquilo. No estás solo.
+                </p>
+                <p>
+                  Por eso creamos <strong className="text-gray-900 font-semibold">Demosle</strong>: para unir estrategia, creatividad y tecnología en un sistema que hace lo que todos prometen — <strong className="text-gray-900 font-semibold">vender de verdad</strong>.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Columna Derecha - Fran */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="lg:col-span-3 lg:mt-16"
+            >
+              <div className="relative group">
+                {/* Foto Fran */}
+                <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                  <img
+                    src="/images/fran.png"
+                    alt="Fran - Co-founder Demosle"
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Overlay con nombre al hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/0 to-gray-900/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <h3 className="text-white font-bold text-xl mb-1">Fran</h3>
+                      <p className="text-white/90 text-sm">Creative & Design</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </Section>
+
+      {/* Services Section - Nuestros servicios */}
+      <Section className="relative overflow-hidden py-20 md:py-32 lg:py-40 bg-white">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/paper3.png"
+            alt="Background texture"
+            className="w-full h-full object-cover opacity-40"
+          />
+        </div>
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
+
+          {/* Header Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="mb-16 md:mb-24 lg:mb-32"
+          >
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-12">
+
+              {/* Left: Label + Title */}
+              <div className="flex-1">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="mb-6"
+                >
+                  <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
+                    En demosle, lo hacemos diferente
+                  </span>
+                </motion.div>
+
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1.1] tracking-tight"
+                >
+                  <span className="block font-black text-gray-900">Nuestros servicios</span>
+                  <span className="block text-2xl md:text-3xl lg:text-4xl font-normal text-gray-600 mt-6 leading-[1.5]">
+                    Somos un equipo de expertos en marketing + desarrolladores. No sólo hacemos sitios geniales, si no que también diseñamos sistemas que venden, medibles y listos para escalar tus campañas.
+                  </span>
+                </motion.h2>
+              </div>
+
+
+            </div>
+          </motion.div>
+
+          {/* Services Grid - Tarjetas Chuecas */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+
+                {[
+                  {
+                    icon: Code2,
+                    title: "Sitios Web a Medida",
+                    subtitle: "(sin plantillas)",
+                    description: "Diseño 100% personalizado, hecho en código. Performance y SEO técnico desde el día uno. Integración completa de GA4, Tag Manager y Meta Pixel para medir lo que importa. Flexibilidad total para construir lo que tu negocio realmente necesita.",
+                    result: "Resultado: una web única, rápida y lista para convertir.",
+                    prices: [
+                      { label: "Sitio Web", price: "$299.990" },
+                      { label: "eCommerce", price: "$499.990" }
+                    ]
+                  },
+                  {
+                    icon: Megaphone,
+                    title: "Campañas de Google Ads",
+                    subtitle: "& Meta Ads",
+                    description: "Publicidad enfocada en ventas, no en clics bonitos. Estructura por objetivos (leads/ventas), con pruebas A/B continuas. Optimización de keywords, audiencias, creatividades y presupuesto. Reportes claros con costo por lead/venta, ROAS y oportunidades.",
+                    result: "Resultado: inversión eficiente y crecimiento medible.",
+                    prices: [
+                      { label: "Google Ads / Meta Ads", price: "$119.990" }
+                    ]
+                  },
+                  {
+                    icon: Workflow,
+                    title: "Automatizaciones",
+                    subtitle: "que Cierran",
+                    description: "Conecta tu tráfico con ingresos. Carrito abandonado, seguimiento post-venta y cross-sell. Secuencias de email/SMS que nutren y convierten. Integración con tu stack (CRM, eCommerce, pasarela de pago).",
+                    result: "Resultado: más cierres con el mismo tráfico.",
+                    prices: [
+                      { label: "Automatizaciones", price: "$299.990" }
+                    ]
+                  },
+                  {
+                    icon: Puzzle,
+                    title: "SaaS, Software &",
+                    subtitle: "Tecnología a Medida",
+                    description: "¿Tienes una idea? La volvemos producto. Desarrollo de SaaS, apps y herramientas internas. Arquitectura escalable, seguridad y analítica integrada. Integraciones con APIs y flujos operativos reales.",
+                    result: "Resultado: tecnología que impulsa tu negocio (no al revés).",
+                    prices: [
+                      { label: "Software a Medida", price: "$1.090.000" }
+                    ]
+                  },
+                  {
+                    icon: Sparkles,
+                    title: "Redes Sociales &",
+                    subtitle: "Marketing de Contenidos",
+                    description: "Contenido que construye marca y trae clientes. Tono comunicacional y línea visual profesionales y consistentes. Calendario editorial con foco en objetivos (awareness, comunidad, conversión). Creatividades con propósito (posts, reels, anuncios, UGC guiado).",
+                    result: "Resultado: presencia sólida y orientada a resultados.",
+                    prices: [
+                      { label: "Redes Sociales", price: "$249.990" }
+                    ]
+                  },
+                  {
+                    icon: Target,
+                    title: "Funnel Completo",
+                    subtitle: "Listo para Vender",
+                    description: "De la estrategia al cierre, todo conectado. Alineamos Ads, Web, Contenido y Automatizaciones a un solo objetivo. Eventos y métricas bien configuradas para decidir con datos. Iteración continua: aprendemos, optimizamos y escalamos.",
+                    result: "Resultado: un sistema que vende hoy y aprende para vender más mañana.",
+                    prices: [
+                      { label: "Todos los Servicios", price: "10% descuento" }
+                    ]
+                  }
+                ].map((service, index) => {
+                  const Icon = service.icon;
+
+                  const handleWhatsAppClick = (priceLabel: string, priceValue: string) => {
+                    const message = `Hola! Me interesa cotizar: ${service.title} - ${priceLabel} (${priceValue})`;
+                    const whatsappUrl = `https://wa.me/56931268881?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                    trackCTAClick(`WhatsApp - ${service.title} - ${priceLabel}`, 'Service Card');
+                  };
+
+                  const rotations = ['-rotate-2', 'rotate-1', '-rotate-1', 'rotate-2', '-rotate-3', 'rotate-1', '-rotate-2'];
+                  const rotation = rotations[index % rotations.length];
+
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 50, rotate: 0 }}
+                      whileInView={{ opacity: 1, y: 0, rotate: index % 2 === 0 ? -2 : 2 }}
+                      whileHover={{
+                        rotate: 0,
+                        scale: 1.05,
+                        y: -10,
+                        transition: { duration: 0.3 }
+                      }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className={`group relative bg-white/95 backdrop-blur-sm rounded-xl border-4 border-white shadow-2xl p-6 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] cursor-pointer ${rotation}`}
+                    >
+                      {/* Icon */}
+                      <div className="mb-4">
+                        <Icon className="w-10 h-10 text-gray-900" strokeWidth={1.5} />
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-1 leading-tight">
+                        {service.title}
+                      </h3>
+                      <p className="text-lg md:text-xl font-light text-gray-500 mb-4 leading-tight">
+                        {service.subtitle}
+                      </p>
+
+                      {/* Description */}
+                      <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                        {service.description}
+                      </p>
+
+                      {/* Result */}
+                      <p className="text-xs font-semibold text-gray-900 mb-4">
+                        {service.result}
+                      </p>
+
+                      {/* Prices - Clickable Pills */}
+                      {service.prices.length > 0 && (
+                        <div className="flex flex-wrap gap-3 mt-auto">
+                          {service.prices.map((priceItem, priceIndex) => (
+                            <button
+                              key={priceIndex}
+                              onClick={() => handleWhatsAppClick(priceItem.label, priceItem.price)}
+                              className="group/price inline-flex items-center gap-2 bg-[#7B34CD] hover:bg-[#6a2db8] text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                            >
+                              <span className="text-xs opacity-80">{priceItem.label}</span>
+                              <span className="font-bold">desde {priceItem.price}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </motion.div>
+                  );
+                })}
+          </div>
+
+        </div>
+      </Section>
+
+      {/* Metrics Section */}
+      <Section className="bg-gray-900 text-white">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {metrics.map((metric, index) => (
+            <motion.div
+              key={metric.label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="text-5xl md:text-6xl font-bold text-primary-400 mb-2">
+                {metric.value}
+              </div>
+              <div className="text-lg text-gray-300">{metric.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Mission Section */}
+      <Section className="bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="mb-8">Nuestra Misión</h2>
+          <p className="text-xl text-gray-700 leading-relaxed mb-8">
+            Nuestra misión es simple: <strong>ayudar a las marcas a vender de forma
+            inteligente, medible y sostenible.</strong>
+          </p>
+          <p className="text-xl text-gray-700 leading-relaxed mb-8">
+            No vendemos piezas. Diseñamos sistemas vivos que venden, miden y evolucionan.
+          </p>
+          <Link to="/nosotros">
+            <Button variant="outline" size="lg">
+              Conocer al equipo
+              <ArrowRight className="ml-2" size={20} />
+            </Button>
+          </Link>
+        </div>
+      </Section>
+
+      {/* Testimonial Section */}
+      <Section className="gradient-bg">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="text-5xl text-primary-600 mb-6">"</div>
+          <blockquote className="text-2xl font-medium text-gray-800 mb-8">
+            {testimonial.quote}
+          </blockquote>
+          <div>
+            <p className="font-semibold text-lg">{testimonial.author}</p>
+            <p className="text-gray-600">{testimonial.company}</p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Final CTA */}
+      <Section className="bg-gray-900 text-white text-center">
+        <h2 className="text-white mb-8">¿Listo para hacer crecer tu negocio?</h2>
+        <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          Hablemos de tu proyecto y diseñemos juntos el sistema que necesitas para vender más.
+        </p>
+        <Link to="/contacto">
+          <Button
+            variant="accent"
+            size="lg"
+            onClick={() => trackCTAClick('Cotizar proyecto', 'Bottom CTA')}
+          >
+            Cotizar proyecto
+            <ArrowRight className="ml-2" size={20} />
+          </Button>
+        </Link>
+      </Section>
+    </>
+  );
+}
