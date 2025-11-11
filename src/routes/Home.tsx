@@ -30,8 +30,7 @@ import { Button } from '@/components/ui/Button';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { trackCTAClick } from '@/hooks/useAnalytics';
-import { useGoogleReviews } from '@/hooks/useGoogleReviews';
-import type { GoogleReview } from '@/hooks/useGoogleReviews';
+import { staticReviews } from '@/data/staticReviews';
 
 const services = [
   {
@@ -86,8 +85,6 @@ const testimonial = {
 };
 
 export function Home() {
-  const { reviews, loading, error, placeName, rating, totalRatings } = useGoogleReviews();
-
   return (
     <>
       <SEO
@@ -776,7 +773,7 @@ export function Home() {
         />
       </Section>
 
-      {/* Google Reviews Section */}
+      {/* Reviews Section */}
       <Section className="relative py-24 md:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
 
@@ -791,147 +788,43 @@ export function Home() {
             ¿Qué dicen nuestros clientes?
           </motion.h2>
 
-          {/* Loading State */}
-          {loading && (
-            <div className="text-center py-12">
-              <p className="text-gray-600">Cargando reseñas...</p>
-            </div>
-          )}
-
           {/* Reviews Grid */}
-          {!loading && reviews.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {reviews.slice(0, 6).map((review: GoogleReview, index: number) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
-                >
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-5 h-5 ${i < review.rating ? 'fill-[#FFC107] text-[#FFC107]' : 'text-gray-300'}`}
-                      />
-                    ))}
-                  </div>
-                  {/* Review Text */}
-                  <p className="text-gray-700 mb-4 leading-relaxed text-base line-clamp-4">
-                    "{review.text}"
-                  </p>
-                  {/* Author */}
-                  <div className="flex items-center gap-3">
-                    {review.profile_photo_url ? (
-                      <img
-                        src={review.profile_photo_url}
-                        alt={review.author_name}
-                        className="w-10 h-10 rounded-full"
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-[#7B34CD] flex items-center justify-center text-white font-bold">
-                        {review.author_name.charAt(0)}
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-gray-900 font-bold">{review.author_name}</p>
-                      <p className="text-gray-500 text-sm">{review.relative_time_description} • Google</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {/* Fallback: mostrar reseñas estáticas si no hay dinámicas */}
-          {!loading && reviews.length === 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {staticReviews.slice(0, 6).map((review, index) => (
               <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
-            >
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[#FFC107] text-[#FFC107]" />
-                ))}
-              </div>
-              {/* Review Text */}
-              <p className="text-gray-700 mb-4 leading-relaxed text-base">
-                "Fantástico servicio, rápidos, amables, destacables más allá de lo que me podía esperar, ha sido una emocionante experiencia y han dejado muy en alto las expectativas que tenía, totalmente recomendado."
-              </p>
-              {/* Author */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#7B34CD] flex items-center justify-center text-white font-bold">
-                  C
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
+              >
+                {/* Stars */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-5 h-5 ${i < review.rating ? 'fill-[#FFC107] text-[#FFC107]' : 'text-gray-300'}`}
+                    />
+                  ))}
                 </div>
-                <div>
-                  <p className="text-gray-900 font-bold">Claudio Alonso Cotroneo</p>
-                  <p className="text-gray-500 text-sm">Hace 2 meses • Google</p>
+                {/* Review Text */}
+                <p className="text-gray-700 mb-4 leading-relaxed text-base line-clamp-4">
+                  "{review.text}"
+                </p>
+                {/* Author */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#7B34CD] flex items-center justify-center text-white font-bold">
+                    {review.author_name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-gray-900 font-bold">{review.author_name}</p>
+                    <p className="text-gray-500 text-sm">{review.relative_time_description} • Google</p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Placeholder para más reseñas */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
-            >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[#FFC107] text-[#FFC107]" />
-                ))}
-              </div>
-              <p className="text-gray-700 mb-4 leading-relaxed text-base">
-                "Excelente trabajo, muy profesionales. Superaron nuestras expectativas con el desarrollo web y las campañas publicitarias."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#7B34CD] flex items-center justify-center text-white font-bold">
-                  M
-                </div>
-                <div>
-                  <p className="text-gray-900 font-bold">María González</p>
-                  <p className="text-gray-500 text-sm">Hace 1 mes • Google</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
-            >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[#FFC107] text-[#FFC107]" />
-                ))}
-              </div>
-              <p className="text-gray-700 mb-4 leading-relaxed text-base">
-                "Recomendados 100%. Trabajo impecable y resultados medibles desde el primer mes. Gran equipo."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#7B34CD] flex items-center justify-center text-white font-bold">
-                  J
-                </div>
-                <div>
-                  <p className="text-gray-900 font-bold">José Rodríguez</p>
-                  <p className="text-gray-500 text-sm">Hace 3 semanas • Google</p>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
-          )}
 
           {/* Link to Google Reviews */}
           <motion.div
