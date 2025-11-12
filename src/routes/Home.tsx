@@ -28,7 +28,7 @@ import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
-import { trackCTAClick } from '@/hooks/useAnalytics';
+import { trackCTAClick, useAnalytics } from '@/hooks/useAnalytics';
 import { staticReviews } from '@/data/staticReviews';
 
 const services = [
@@ -84,6 +84,9 @@ const testimonial = {
 };
 
 export function Home() {
+  // Activate auto-tracking: page views, scroll, engagement, sections, hash navigation
+  useAnalytics();
+
   return (
     <>
       <SEO
@@ -271,6 +274,10 @@ export function Home() {
               const Icon = service.icon;
               const rotations = [-2, 1, -1, 2, -3, 1];
 
+              const handleServiceCardClick = () => {
+                trackCTAClick(`Service Card - ${service.title}`, 'Services Section');
+              };
+
               const handleWhatsAppClick = (priceLabel: string, priceValue: string) => {
                 const message = `Hola! Me interesa cotizar: ${service.title} - ${priceLabel} (${priceValue})`;
                 const whatsappUrl = `https://wa.me/56966354128?text=${encodeURIComponent(message)}`;
@@ -281,6 +288,7 @@ export function Home() {
               return (
                 <motion.div
                   key={index}
+                  onClick={handleServiceCardClick}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{
@@ -291,7 +299,7 @@ export function Home() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   style={{ rotate: rotations[index] }}
-                  className="relative bg-white rounded-xl border-4 border-black shadow-2xl p-6 overflow-hidden"
+                  className="relative bg-white rounded-xl border-4 border-black shadow-2xl p-6 overflow-hidden cursor-pointer"
                 >
                   {/* Decorative circle */}
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
@@ -874,7 +882,7 @@ export function Home() {
 }
 
 // Project Card Component
-function ProjectCard({ project, index }: { project: any; index: number }) {
+function ProjectCard({ project, index, onProjectClick }: { project: any; index: number; onProjectClick: (project: any) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const isSocialMedia = project.category === 'social';
@@ -902,11 +910,16 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
     }
   };
 
+  const handleClick = () => {
+    onProjectClick(project);
+  };
+
   return (
     <motion.a
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, x: 50 }}
@@ -996,8 +1009,15 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
 
 // Portfolio Section Component - Horizontal Scroll
 function PortfolioSection() {
+  const { trackPortfolioView, trackProjectClick } = useAnalytics();
   const [activeCategory, setActiveCategory] = useState('web');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    const projectCount = projectsByCategory[category as keyof typeof projectsByCategory]?.length || 0;
+    trackPortfolioView(category, projectCount);
+  };
 
   const projectsByCategory = {
     web: [
@@ -1313,7 +1333,7 @@ function PortfolioSection() {
           {/* Category Filters */}
           <div className="flex justify-center gap-4 flex-wrap">
             <button
-              onClick={() => setActiveCategory('web')}
+              onClick={() => handleCategoryChange('web')}
               className={`px-8 py-4 font-bold text-lg transition-all transform -rotate-2 hover:rotate-0 ${
                 activeCategory === 'web'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
@@ -1323,7 +1343,7 @@ function PortfolioSection() {
               Páginas Web
             </button>
             <button
-              onClick={() => setActiveCategory('ecommerce')}
+              onClick={() => handleCategoryChange('ecommerce')}
               className={`px-8 py-4 font-bold text-lg transition-all transform rotate-1 hover:rotate-0 ${
                 activeCategory === 'ecommerce'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
@@ -1333,7 +1353,7 @@ function PortfolioSection() {
               E-commerce
             </button>
             <button
-              onClick={() => setActiveCategory('social')}
+              onClick={() => handleCategoryChange('social')}
               className={`px-8 py-4 font-bold text-lg transition-all transform -rotate-1 hover:rotate-0 ${
                 activeCategory === 'social'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
@@ -1343,7 +1363,7 @@ function PortfolioSection() {
               Redes Sociales
             </button>
             <button
-              onClick={() => setActiveCategory('identidad')}
+              onClick={() => handleCategoryChange('identidad')}
               className={`px-8 py-4 font-bold text-lg transition-all transform rotate-2 hover:rotate-0 ${
                 activeCategory === 'identidad'
                   ? 'bg-[#7B34CD] text-white shadow-lg'
@@ -1380,7 +1400,12 @@ function PortfolioSection() {
             style={{ scrollSnapType: 'x mandatory' }}
           >
             {projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                onProjectClick={(proj) => trackProjectClick(proj.title, proj.category, proj.url)}
+              />
             ))}
           </div>
         </div>
@@ -1414,6 +1439,7 @@ function PortfolioSection() {
 
 // Quote Wizard Section Component
 function QuoteWizardSection() {
+  const { trackServiceSelection, trackServiceCombination, trackWhatsAppClick, trackQuoteCompleted } = useAnalytics();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '',
@@ -1444,19 +1470,62 @@ function QuoteWizardSection() {
   const isFunnelCompleto = hasWebPage && hasAllOtherServices && doesNotHaveSoftware;
 
   const handleServiceToggle = (serviceId: string) => {
+    const isCurrentlySelected = formData.services.includes(serviceId);
+    const newServices = isCurrentlySelected
+      ? formData.services.filter(s => s !== serviceId)
+      : [...formData.services, serviceId];
+
+    // Find service name
+    const service = services.find(s => s.id === serviceId);
+
+    // Track selection/deselection
+    if (service) {
+      trackServiceSelection({
+        service_id: serviceId,
+        service_name: service.name,
+        action: isCurrentlySelected ? 'deselected' : 'selected',
+        current_services: newServices,
+        total_services_selected: newServices.length,
+      });
+    }
+
     setFormData(prev => ({
       ...prev,
-      services: prev.services.includes(serviceId)
-        ? prev.services.filter(s => s !== serviceId)
-        : [...prev.services, serviceId]
+      services: newServices
     }));
   };
 
   const handleSubmit = () => {
+    // Track service combination before submitting
+    trackServiceCombination({
+      services_selected: formData.services,
+      services_count: formData.services.length,
+      has_web: hasWebPage,
+      has_ads: formData.services.includes('google-ads') || formData.services.includes('meta-ads'),
+      has_social: formData.services.includes('social-media'),
+      has_automation: formData.services.includes('automatizacion'),
+      has_funnel_completo: isFunnelCompleto,
+    });
+
     const selectedServices = services
       .filter(s => formData.services.includes(s.id))
       .map(s => `${s.name} (${s.price})`)
       .join('\n');
+
+    // Track quote completed (SECONDARY CONVERSION)
+    trackQuoteCompleted({
+      services_selected: formData.services,
+      services_count: formData.services.length,
+      has_funnel_completo: isFunnelCompleto,
+    });
+
+    // Track WhatsApp click from cotizador (PRIMARY CONVERSION)
+    trackWhatsAppClick({
+      click_location: 'cotizador',
+      button_text: 'Enviar Cotización',
+      message_type: 'cotizacion',
+      services_selected: formData.services,
+    });
 
     const message = `Hola! Me gustaría cotizar los siguientes servicios:\n\nNombre: ${formData.name}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\n\nServicios:\n${selectedServices}`;
 
@@ -1674,7 +1743,16 @@ function QuoteWizardSection() {
 
 // FAQ Section Component
 function FAQSection() {
+  const { trackFAQOpened } = useAnalytics();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleFAQToggle = (index: number, question: string) => {
+    const isOpening = openIndex !== index;
+    if (isOpening) {
+      trackFAQOpened(question, 'faq');
+    }
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   const faqs = [
     {
@@ -1778,7 +1856,7 @@ function FAQSection() {
                     className="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg border border-white/20"
                   >
                   <button
-                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                    onClick={() => handleFAQToggle(index, faq.question)}
                     className="w-full px-4 py-3 text-left flex justify-between items-center hover:bg-white/20 transition-colors duration-200"
                   >
                     <span className="text-sm md:text-base font-bold text-white pr-3">

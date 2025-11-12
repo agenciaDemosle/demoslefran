@@ -1,8 +1,16 @@
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { trackWhatsAppClick } from '@/hooks/useAnalytics';
 
 export function WhatsAppButton() {
   const handleClick = () => {
+    // Track WhatsApp click (PRIMARY CONVERSION)
+    trackWhatsAppClick({
+      click_location: 'floating_button',
+      button_text: 'WhatsApp flotante',
+      message_type: 'info_general',
+    });
+
     const message = 'Hola! Me gustaría obtener más información sobre sus servicios.';
     const whatsappUrl = `https://wa.me/56966354128?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

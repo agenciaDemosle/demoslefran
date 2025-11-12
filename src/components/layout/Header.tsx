@@ -54,14 +54,28 @@ export function Header() {
           {/* Zona Central - Navegación Desktop */}
           <div className="hidden lg:flex items-center gap-8">
             {navigation.map((item) => (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
-                className="text-sm text-white/90 hover:text-white transition-colors font-medium"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const targetId = item.href.replace('#', '');
+                  const element = document.getElementById(targetId);
+                  if (element) {
+                    const headerOffset = 120; // Ajusta este valor según la altura del header
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+                className="text-sm text-white/90 hover:text-white transition-colors font-medium cursor-pointer bg-transparent border-none"
                 style={{ fontFamily: 'monospace', letterSpacing: '0.02em' }}
               >
                 {item.name}
-              </a>
+              </button>
             ))}
           </div>
 
@@ -71,7 +85,14 @@ export function Header() {
               onClick={() => {
                 const cotizadorSection = document.getElementById('cotizador');
                 if (cotizadorSection) {
-                  cotizadorSection.scrollIntoView({ behavior: 'smooth' });
+                  const headerOffset = 120;
+                  const elementPosition = cotizadorSection.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
                 }
               }}
               className="px-5 py-2 rounded-lg border-2 border-white text-white hover:bg-white hover:text-[#7b34cd] transition-all duration-300 text-sm font-semibold"
@@ -104,30 +125,43 @@ export function Header() {
           >
             <div className="px-6 py-6 space-y-4">
               {navigation.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
                   onClick={(e) => {
                     e.preventDefault();
                     setIsOpen(false);
                     const targetId = item.href.replace('#', '');
                     const element = document.getElementById(targetId);
                     if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
+                      const headerOffset = 120;
+                      const elementPosition = element.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                      });
                     }
                   }}
-                  className="block py-2 text-base font-medium text-white/90 hover:text-white transition-colors"
+                  className="block py-2 text-base font-medium text-white/90 hover:text-white transition-colors w-full text-left bg-transparent border-none cursor-pointer"
                   style={{ fontFamily: 'monospace' }}
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
               <div className="pt-4 border-t border-white/20">
                 <button
                   onClick={() => {
                     const cotizadorSection = document.getElementById('cotizador');
                     if (cotizadorSection) {
-                      cotizadorSection.scrollIntoView({ behavior: 'smooth' });
+                      const headerOffset = 120;
+                      const elementPosition = cotizadorSection.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                      });
                     }
                     setIsOpen(false);
                   }}
