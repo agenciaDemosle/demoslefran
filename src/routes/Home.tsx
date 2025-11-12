@@ -937,7 +937,18 @@ function ProjectCard({ project, index, onProjectClick }: { project: any; index: 
     >
       {/* Project Image - Vertical/Tall */}
       <div className="relative bg-gray-200 overflow-hidden" style={{ aspectRatio: isSocialMedia ? '9/16' : '3/4', height: isSocialMedia ? '600px' : '400px' }}>
-        {project.image.endsWith('.MP4') || project.image.endsWith('.mov') ? (
+        {project.vimeoId ? (
+          <div style={{ padding: '217.41% 0 0 0', position: 'relative' }}>
+            <iframe
+              src={`https://player.vimeo.com/video/${project.vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1`}
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              loading="eager"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title={project.title}
+            />
+          </div>
+        ) : project.image?.endsWith('.MP4') || project.image?.endsWith('.mov') ? (
           <>
             <video
               ref={videoRef}
@@ -945,6 +956,8 @@ function ProjectCard({ project, index, onProjectClick }: { project: any; index: 
               loop
               muted={isMuted}
               playsInline
+              autoPlay
+              preload="auto"
               className="w-full h-full object-cover"
             />
             {/* Audio Control Button - Only for social media */}
@@ -1025,8 +1038,9 @@ function PortfolioSection() {
         id: 2,
         title: "Contadoor",
         description: "Página web profesional con recursos, herramientas, cotizador y servicio de Google Ads",
-        image: "/images/contadoor.mov",
+        vimeoId: "1135874152",
         url: "https://contadoor.cl/",
+        category: "web",
         tech: ["React", "TypeScript", "Google Ads"],
         results: [
           "Sistema de cotización automatizado",
@@ -1038,7 +1052,8 @@ function PortfolioSection() {
         id: 5,
         title: "Fumigaciones Lourdes",
         description: "Página web de fumigaciones y servicio de Google Ads",
-        image: "/images/fumigaciones.mov",
+        vimeoId: "1135874411",
+        category: "web",
         url: "https://fumigacioneslourdes.cl/",
         tech: ["WordPress", "Google Ads", "SEO"],
         results: [
@@ -1051,7 +1066,8 @@ function PortfolioSection() {
         id: 6,
         title: "La Prov Studio",
         description: "Página web profesional con cotizador dinámico",
-        image: "/images/laprov.MP4",
+        vimeoId: "1135874891",
+        category: "web",
         url: "https://laprovstudio.cl/",
         tech: ["React", "TypeScript", "Cotizador Dinámico"],
         results: [
@@ -1064,7 +1080,8 @@ function PortfolioSection() {
         id: 8,
         title: "Piscinas Alfa",
         description: "Página web profesional",
-        image: "/images/piscinasalfa.mov",
+        vimeoId: "1135875173",
+        category: "web",
         url: "https://piscinasalfa.cl/",
         tech: ["WordPress", "Diseño Web", "SEO"],
         results: [
@@ -1077,7 +1094,8 @@ function PortfolioSection() {
         id: 9,
         title: "Wings",
         description: "Página web profesional enlazada con Angendra Pro para gestión integral",
-        image: "/images/wings.MP4",
+        vimeoId: "1135875612",
+        category: "web",
         url: "https://wings.cl/",
         tech: ["React", "Angendra Pro", "Integración"],
         results: [
@@ -1090,7 +1108,8 @@ function PortfolioSection() {
         id: 11,
         title: "Grúas JPV",
         description: "Página web profesional para servicios de grúas",
-        image: "/images/gruas.mov",
+        vimeoId: "1135874462",
+        category: "web",
         url: "https://gruasjpv.cl/",
         tech: ["WordPress", "Diseño Web", "SEO"],
         results: [
@@ -1103,7 +1122,8 @@ function PortfolioSection() {
         id: 12,
         title: "Morgan Cauchos",
         description: "Landing page profesional para venta de cauchos y neumáticos",
-        image: "/images/morgancauchos.MP4",
+        vimeoId: "1135875090",
+        category: "web",
         url: "https://morgancauchos.cl/",
         tech: ["WordPress", "Diseño Web", "SEO"],
         results: [
@@ -1116,7 +1136,8 @@ function PortfolioSection() {
         id: 13,
         title: "Senby",
         description: "Plataforma de logística con tracking de envíos en tiempo real y cotizador automático",
-        image: "/images/senby.MP4",
+        vimeoId: "1135875326",
+        category: "web",
         url: "https://senby.cl/",
         tech: ["React", "Tracking", "Sistema de Cotización"],
         results: [
@@ -1131,7 +1152,8 @@ function PortfolioSection() {
         id: 1,
         title: "Stomping Ground Patagonia",
         description: "E-commerce de Rent a Car y Turismo 4x4 en la Patagonia chilena",
-        image: "/images/stomping.MP4",
+        vimeoId: "1135875421",
+        category: "ecommerce",
         url: "https://stompingroundpatagonia4x4.cl/",
         tech: ["WordPress", "WooCommerce", "PHP"],
         results: [
@@ -1144,7 +1166,8 @@ function PortfolioSection() {
         id: 3,
         title: "Escandalosos",
         description: "E-commerce gastronómico, selección de pizzas y combos por pasos, sistema de delivery personalizado",
-        image: "/images/escandalosos.mov",
+        vimeoId: "1135874363",
+        category: "ecommerce",
         url: "https://escandalosospizzas.cl/",
         tech: ["React", "Node.js", "E-commerce"],
         results: [
@@ -1157,7 +1180,8 @@ function PortfolioSection() {
         id: 4,
         title: "Tactical Outdoor",
         description: "E-commerce duo de equipo táctico y outdoor con control de modo para cambiar toda la web",
-        image: "/images/tacticaloutdoor.MP4",
+        vimeoId: "1135875518",
+        category: "ecommerce",
         url: "https://tacticaloutdoor.cl/",
         tech: ["React", "Modo Dual", "E-commerce"],
         results: [
@@ -1170,7 +1194,8 @@ function PortfolioSection() {
         id: 7,
         title: "Mamasous",
         description: "E-commerce gastronómico en Shopify",
-        image: "/images/mamasous.MP4",
+        vimeoId: "1135875011",
+        category: "ecommerce",
         url: "https://mamasous.cl/",
         tech: ["Shopify", "E-commerce", "Gastronomía"],
         results: [
@@ -1183,7 +1208,8 @@ function PortfolioSection() {
         id: 10,
         title: "Rey Piscinas",
         description: "E-commerce con sistema de cotizador personalizado para piscinas",
-        image: "/images/reypiscinas.mov",
+        vimeoId: "1135875256",
+        category: "ecommerce",
         url: "https://reypiscinas.cl/",
         tech: ["React", "E-commerce", "Cotizador"],
         results: [
@@ -1198,9 +1224,9 @@ function PortfolioSection() {
         id: 14,
         title: "Gestión de Redes Sociales",
         description: "",
-        image: "/images/instagram.MP4",
-        url: "#",
+        vimeoId: "1135874586",
         category: "social",
+        url: "#",
         tech: ["Instagram", "Facebook", "Content Strategy"],
         results: []
       },
@@ -1208,9 +1234,9 @@ function PortfolioSection() {
         id: 15,
         title: "Gestión de Redes Sociales",
         description: "",
-        image: "/images/instagram2.mov",
-        url: "#",
+        vimeoId: "1135874654",
         category: "social",
+        url: "#",
         tech: ["Instagram", "Facebook", "Content Strategy"],
         results: []
       },
@@ -1218,9 +1244,9 @@ function PortfolioSection() {
         id: 16,
         title: "Gestión de Redes Sociales",
         description: "",
-        image: "/images/instagram3.mov",
-        url: "#",
+        vimeoId: "1135874681",
         category: "social",
+        url: "#",
         tech: ["Instagram", "Facebook", "Content Strategy"],
         results: []
       },
@@ -1228,9 +1254,9 @@ function PortfolioSection() {
         id: 17,
         title: "Gestión de Redes Sociales",
         description: "",
-        image: "/images/instagram4.mov",
-        url: "#",
+        vimeoId: "1135874728",
         category: "social",
+        url: "#",
         tech: ["Instagram", "Facebook", "Content Strategy"],
         results: []
       },
@@ -1238,9 +1264,9 @@ function PortfolioSection() {
         id: 18,
         title: "Gestión de Redes Sociales",
         description: "",
-        image: "/images/instagram5.MP4",
-        url: "#",
+        vimeoId: "1135874759",
         category: "social",
+        url: "#",
         tech: ["Instagram", "Facebook", "Content Strategy"],
         results: []
       },
