@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Meta CAPI - Demosle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        button {
+            background: #7B34CD;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #6328a8;
+        }
+        .result {
+            background: white;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #7B34CD;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .success { border-left-color: #10b981; }
+        .error { border-left-color: #ef4444; }
+        h1 { color: #7B34CD; }
+        h2 { color: #333; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Meta CAPI - Demosle</h1>
+
+    <div class="test-section">
+        <h2>1. Test WhatsApp Click (Contact)</h2>
+        <p>Simula un click en el botón de WhatsApp</p>
+        <button onclick="testWhatsAppClick()">Enviar WhatsApp Click</button>
+        <div id="result-whatsapp" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test Quote Completed (Lead)</h2>
+        <p>Simula una cotización completada con datos del usuario</p>
+        <input type="email" id="email" placeholder="Email de prueba" value="test@demosle.com" style="padding: 8px; margin: 5px; width: 200px;">
+        <input type="tel" id="phone" placeholder="Teléfono" value="56974664281" style="padding: 8px; margin: 5px; width: 200px;">
+        <br>
+        <button onclick="testQuoteCompleted()">Enviar Quote Completed</button>
+        <div id="result-quote" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test Phone Click (Contact)</h2>
+        <p>Simula un click en el botón de teléfono</p>
+        <button onclick="testPhoneClick()">Enviar Phone Click</button>
+        <div id="result-phone" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Verificar resultados</h2>
+        <p>Después de enviar eventos, verifica en:</p>
+        <ol>
+            <li><strong>Meta Events Manager:</strong> <a href="https://business.facebook.com/events_manager2/list/pixel/757787516978508" target="_blank">Ver eventos en Meta</a></li>
+            <li>Ve a "Test Events" si usas test_event_code</li>
+            <li>Busca eventos con "Server" como fuente</li>
+        </ol>
+    </div>
+
+    <script>
+        const CAPI_ENDPOINT = 'https://demosle.cl/api/capi.php';
+
+        // Helper: Hash SHA-256
+        async function hashSHA256(data) {
+            const encoder = new TextEncoder();
+            const dataBuffer = encoder.encode(data.toLowerCase().trim());
+            const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Helper: Generate event ID
+        function generateEventId() {
+            return `${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+        }
+
+        // Test 1: WhatsApp Click
+        async function testWhatsAppClick() {
+            const resultDiv = document.getElementById('result-whatsapp');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = '⏳ Enviando evento...';
+            resultDiv.className = 'result';
+
+            try {
+                const eventId = generateEventId();
+
+                const response = await fetch(CAPI_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        data: [{
+                            event_name: 'Contact',
+                            event_id: eventId,
+                            event_time: Math.floor(Date.now() / 1000),
+                            event_source_url: window.location.href,
+                            action_source: 'website',
+                            user_data: {},
+                            custom_data: {
+                                content_name: 'test_whatsapp_button',
+                                content_category: 'test',
+                                value: 0,
+                                currency: 'CLP'
+                            }
+                        }]
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Éxito!\n\nEvent ID: ${eventId}\nEventos recibidos: ${result.events_received}\n\nRespuesta completa:\n${JSON.stringify(result, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Error:\n${JSON.stringify(result, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error de red:\n${error.message}`;
+            }
+        }
+
+        // Test 2: Quote Completed
+        async function testQuoteCompleted() {
+            const resultDiv = document.getElementById('result-quote');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = '⏳ Enviando evento...';
+            resultDiv.className = 'result';
+
+            try {
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const eventId = generateEventId();
+
+                const userData = {};
+                if (email) userData.em = await hashSHA256(email);
+                if (phone) userData.ph = await hashSHA256(phone.replace(/\D/g, ''));
+
+                const response = await fetch(CAPI_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        data: [{
+                            event_name: 'Lead',
+                            event_id: eventId,
+                            event_time: Math.floor(Date.now() / 1000),
+                            event_source_url: window.location.href,
+                            action_source: 'website',
+                            user_data: userData,
+                            custom_data: {
+                                content_name: 'cotizador',
+                                content_category: 'web-simple,google-ads',
+                                num_items: 2,
+                                value: 299990,
+                                currency: 'CLP'
+                            }
+                        }]
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Éxito!\n\nEvent ID: ${eventId}\nEmail hasheado: ${userData.em}\nTeléfono hasheado: ${userData.ph}\nEventos recibidos: ${result.events_received}\n\nRespuesta completa:\n${JSON.stringify(result, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Error:\n${JSON.stringify(result, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error de red:\n${error.message}`;
+            }
+        }
+
+        // Test 3: Phone Click
+        async function testPhoneClick() {
+            const resultDiv = document.getElementById('result-phone');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = '⏳ Enviando evento...';
+            resultDiv.className = 'result';
+
+            try {
+                const eventId = generateEventId();
+
+                const response = await fetch(CAPI_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        data: [{
+                            event_name: 'Contact',
+                            event_id: eventId,
+                            event_time: Math.floor(Date.now() / 1000),
+                            event_source_url: window.location.href,
+                            action_source: 'website',
+                            user_data: {},
+                            custom_data: {
+                                content_name: 'test_phone_button',
+                                content_category: 'phone_call'
+                            }
+                        }]
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Éxito!\n\nEvent ID: ${eventId}\nEventos recibidos: ${result.events_received}\n\nRespuesta completa:\n${JSON.stringify(result, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Error:\n${JSON.stringify(result, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error de red:\n${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

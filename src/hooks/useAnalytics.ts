@@ -133,7 +133,7 @@ export function usePageTracking() {
     }
 
     // Console log for development
-    console.log('📊 Page View:', location.pathname + location.hash, '| Type:', pageType);
+    // console.log('📊 Page View:', location.pathname + location.hash, '| Type:', pageType);
   }, [location]);
 }
 
@@ -153,7 +153,7 @@ export function useHashChangeTracking() {
           });
         }
 
-        console.log('🔗 Hash Change:', hash);
+        // console.log('🔗 Hash Change:', hash);
       }
     };
 
@@ -176,7 +176,7 @@ export function trackEvent({ action, category, label, value }: AnalyticsEvent) {
   }
 
   // Console log for development
-  console.log('📊 Event:', { action, category, label, value });
+  // console.log('📊 Event:', { action, category, label, value });
 }
 
 // ============================================
@@ -184,13 +184,16 @@ export function trackEvent({ action, category, label, value }: AnalyticsEvent) {
 // ============================================
 
 // Track WhatsApp click (PRIMARY CONVERSION)
-export function trackWhatsAppClick(params: {
+export async function trackWhatsAppClick(params: {
   click_location: string;
   button_text?: string;
   service_interested?: string;
   value?: number;
 }) {
   cleanDataLayer();
+
+  // Generar event_id único para deduplicación
+  const eventId = generateEventId();
 
   if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
@@ -200,20 +203,40 @@ export function trackWhatsAppClick(params: {
       service_interested: params.service_interested || 'general',
       value: params.value || 0,
       currency: 'CLP',
+      event_id: eventId, // Para deduplicación con CAPI
     });
   }
 
-  console.log('💬 WhatsApp Click:', params);
+  // Enviar a Meta CAPI
+  await sendToMetaCAPI({
+    eventName: 'Contact',
+    eventId: eventId,
+    customData: {
+      content_name: params.click_location,
+      content_category: params.service_interested || 'general',
+      value: params.value || 0,
+      currency: 'CLP',
+    },
+  });
+
+  // console.log('💬 WhatsApp Click:', params);
 }
 
 // Track quote completed (SECONDARY CONVERSION)
-export function trackQuoteCompleted(params: {
+export async function trackQuoteCompleted(params: {
   services_selected: string[];
   services_count: number;
   has_funnel_completo: boolean;
   value: number;
+  email?: string;
+  phone?: string;
+  firstName?: string;
+  lastName?: string;
 }) {
   cleanDataLayer();
+
+  // Generar event_id único para deduplicación
+  const eventId = generateEventId();
 
   if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
@@ -224,10 +247,29 @@ export function trackQuoteCompleted(params: {
       value: params.value,
       currency: 'CLP',
       form_name: 'cotizador',
+      event_id: eventId, // Para deduplicación con CAPI
     });
   }
 
-  console.log('📝 Quote Completed:', params);
+  // Enviar a Meta CAPI
+  await sendToMetaCAPI({
+    eventName: 'Lead',
+    eventId: eventId,
+    email: params.email,
+    phone: params.phone,
+    firstName: params.firstName,
+    lastName: params.lastName,
+    customData: {
+      content_name: 'cotizador',
+      content_category: params.services_selected.join(','),
+      num_items: params.services_count,
+      value: params.value,
+      currency: 'CLP',
+      has_funnel_completo: params.has_funnel_completo,
+    },
+  });
+
+  // console.log('📝 Quote Completed:', params);
 }
 
 // ============================================
@@ -254,7 +296,7 @@ export function trackServiceCardClick(
     });
   }
 
-  console.log('🎯 Service Card Click:', { serviceName, serviceValue, clickLocation });
+  // console.log('🎯 Service Card Click:', { serviceName, serviceValue, clickLocation });
 }
 
 // ============================================
@@ -262,22 +304,36 @@ export function trackServiceCardClick(
 // ============================================
 
 // Track form start
-export function trackFormStart(formName: string) {
+export async function trackFormStart(formName: string) {
   cleanDataLayer();
+
+  // Generar event_id único para deduplicación
+  const eventId = generateEventId();
 
   if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
       event: 'form_start',
       form_name: formName,
       page_type: 'cotizador',
+      event_id: eventId, // Para deduplicación con CAPI
     });
   }
 
-  console.log('📝 Form Start:', formName);
+  // Enviar a Meta CAPI (evento personalizado de inicio de cotizador)
+  await sendToMetaCAPI({
+    eventName: 'InitiateCheckout', // Evento estándar de Meta más cercano
+    eventId: eventId,
+    customData: {
+      content_name: formName,
+      content_category: 'cotizador_inicio',
+    },
+  });
+
+  // console.log('📝 Form Start:', formName);
 }
 
 // Track service selection/deselection in cotizador
-export function trackServiceSelection(params: {
+export async function trackServiceSelection(params: {
   service_id: string;
   service_name: string;
   action: 'selected' | 'deselected';
@@ -285,6 +341,9 @@ export function trackServiceSelection(params: {
   total_services_selected: number;
 }) {
   cleanDataLayer();
+
+  // Generar event_id único para deduplicación
+  const eventId = generateEventId();
 
   if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
@@ -295,12 +354,28 @@ export function trackServiceSelection(params: {
       services_selected: params.current_services.join(','),
       services_count: params.total_services_selected,
       form_name: 'cotizador',
+      event_id: eventId, // Para deduplicación con CAPI
+    });
+  }
+
+  // Solo enviar a CAPI cuando SELECCIONA (no cuando deselecciona)
+  if (params.action === 'selected') {
+    await sendToMetaCAPI({
+      eventName: 'AddToWishlist', // Evento estándar de Meta para "interés en producto/servicio"
+      eventId: eventId,
+      customData: {
+        content_name: params.service_name,
+        content_ids: [params.service_id],
+        content_category: 'cotizador_servicio',
+        contents: params.current_services.map(id => ({ id, quantity: 1 })),
+        num_items: params.total_services_selected,
+      },
     });
   }
 
   const emoji = params.action === 'selected' ? '✅' : '❌';
-  console.log(`${emoji} Service ${params.action}:`, params.service_name,
-    `| Total: ${params.total_services_selected}`);
+  // console.log(`${emoji} Service ${params.action}:`, params.service_name,
+  //   `| Total: ${params.total_services_selected}`);
 }
 
 // Track service combination (when user finishes selecting)
@@ -329,11 +404,11 @@ export function trackServiceCombination(params: {
     });
   }
 
-  console.log('🎯 Service Combination:', {
-    services: params.services_selected,
-    type: getCombinationType(params),
-    funnel: params.has_funnel_completo ? '✅ Completo' : '❌ Parcial'
-  });
+  // console.log('🎯 Service Combination:', {
+  //   services: params.services_selected,
+  //   type: getCombinationType(params),
+  //   funnel: params.has_funnel_completo ? '✅ Completo' : '❌ Parcial'
+  // });
 }
 
 // Helper function to determine combination type
@@ -376,7 +451,7 @@ export function trackStepCompleted(stepNumber: number, formName: string, stepNam
     });
   }
 
-  console.log('✅ Step Completed:', { stepNumber, stepName: finalStepName, formName });
+  // console.log('✅ Step Completed:', { stepNumber, stepName: finalStepName, formName });
 }
 
 // Track funnel completo detected
@@ -393,7 +468,7 @@ export function trackFunnelCompletoDetected(servicesSelected: string[]) {
     });
   }
 
-  console.log('🎁 Funnel Completo Detected:', servicesSelected);
+  // console.log('🎁 Funnel Completo Detected:', servicesSelected);
 }
 
 // ============================================
@@ -419,7 +494,7 @@ export function trackCTAClick(
     });
   }
 
-  console.log('🔘 CTA Click:', { ctaText, ctaLocation, ctaType });
+  // console.log('🔘 CTA Click:', { ctaText, ctaLocation, ctaType });
 }
 
 // ============================================
@@ -439,7 +514,7 @@ export function trackPortfolioView(category: string, projectCount: number) {
     });
   }
 
-  console.log('🎨 Portfolio View:', { category, projectCount });
+  // console.log('🎨 Portfolio View:', { category, projectCount });
 }
 
 // Track project click
@@ -460,7 +535,7 @@ export function trackProjectClick(
     });
   }
 
-  console.log('🖼️ Project Click:', { projectName, projectCategory, projectUrl });
+  // console.log('🖼️ Project Click:', { projectName, projectCategory, projectUrl });
 }
 
 // ============================================
@@ -479,7 +554,7 @@ export function trackFAQOpened(question: string, section: string = 'faq') {
     });
   }
 
-  console.log('❓ FAQ Opened:', { question, section });
+  // console.log('❓ FAQ Opened:', { question, section });
 }
 
 // ============================================
@@ -498,7 +573,7 @@ export function trackReviewView(reviewCount: number) {
     });
   }
 
-  console.log('⭐ Review View:', reviewCount);
+  // console.log('⭐ Review View:', reviewCount);
 }
 
 // ============================================
@@ -506,18 +581,32 @@ export function trackReviewView(reviewCount: number) {
 // ============================================
 
 // Track phone click
-export function trackPhoneClick(clickLocation: string, buttonText?: string) {
+export async function trackPhoneClick(clickLocation: string, buttonText?: string) {
   cleanDataLayer();
+
+  // Generar event_id único para deduplicación
+  const eventId = generateEventId();
 
   if (typeof window !== 'undefined' && window.dataLayer) {
     window.dataLayer.push({
       event: 'phone_click',
       click_location: clickLocation,
       button_text: buttonText || 'Llamar',
+      event_id: eventId, // Para deduplicación con CAPI
     });
   }
 
-  console.log('📞 Phone Click:', clickLocation);
+  // Enviar a Meta CAPI
+  await sendToMetaCAPI({
+    eventName: 'Contact',
+    eventId: eventId,
+    customData: {
+      content_name: clickLocation,
+      content_category: 'phone_call',
+    },
+  });
+
+  // console.log('📞 Phone Click:', clickLocation);
 }
 
 // ============================================
@@ -537,7 +626,7 @@ export function trackOutboundClick(url: string, linkText: string = '') {
     });
   }
 
-  console.log('🔗 Outbound Click:', { url, linkText });
+  // console.log('🔗 Outbound Click:', { url, linkText });
 }
 
 // ============================================
@@ -556,7 +645,7 @@ export function trackScrollDepth(scrollPercentage: number) {
     });
   }
 
-  console.log('📜 Scroll Depth:', scrollPercentage + '%');
+  // console.log('📜 Scroll Depth:', scrollPercentage + '%');
 }
 
 // Hook for scroll tracking (25%, 50%, 75%, 100%)
@@ -600,7 +689,7 @@ export function trackSectionView(sectionName: string, visibilityPercentage: numb
     });
   }
 
-  console.log('👁️ Section View:', sectionName, '|', visibilityPercentage + '%');
+  // console.log('👁️ Section View:', sectionName, '|', visibilityPercentage + '%');
 }
 
 // Hook for section visibility tracking using Intersection Observer
@@ -648,9 +737,9 @@ export function useAutoSectionVisibility() {
       }
     });
 
-    console.log('📊 Auto-tracking', sections.length, 'sections:',
-      Array.from(sections).map(s => s.id).filter(Boolean).join(', ')
-    );
+    // console.log('📊 Auto-tracking', sections.length, 'sections:',
+    //   Array.from(sections).map(s => s.id).filter(Boolean).join(', ')
+    // );
 
     return () => observer.disconnect();
   }, []);
@@ -705,7 +794,7 @@ export function trackEngagementTime(timeInSeconds: number) {
     });
   }
 
-  console.log('⏱️ Engagement Time:', timeInSeconds + 's');
+  // console.log('⏱️ Engagement Time:', timeInSeconds + 's');
 }
 
 // Hook for engagement time tracking
@@ -734,6 +823,11 @@ export function useEngagementTime() {
 // META CONVERSIONS API (CAPI)
 // ============================================
 
+// Helper: Generate unique event ID for deduplication
+function generateEventId(): string {
+  return `${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+}
+
 // Helper: Hash data for Meta CAPI (SHA-256)
 async function hashSHA256(data: string): Promise<string> {
   if (typeof window === 'undefined' || !window.crypto || !window.crypto.subtle) {
@@ -751,6 +845,7 @@ async function hashSHA256(data: string): Promise<string> {
 // Send event to Meta CAPI via PHP endpoint
 export async function sendToMetaCAPI(params: {
   eventName: string;
+  eventId?: string;
   email?: string;
   phone?: string;
   firstName?: string;
@@ -761,6 +856,7 @@ export async function sendToMetaCAPI(params: {
   try {
     const {
       eventName,
+      eventId,
       email,
       phone,
       firstName,
@@ -803,7 +899,7 @@ export async function sendToMetaCAPI(params: {
     }
 
     // Construir evento
-    const event = {
+    const event: Record<string, any> = {
       event_name: eventName,
       event_time: Math.floor(Date.now() / 1000),
       event_source_url: eventSourceUrl || window.location.href,
@@ -811,6 +907,11 @@ export async function sendToMetaCAPI(params: {
       user_data: userData,
       custom_data: customData,
     };
+
+    // Agregar event_id si existe (para deduplicación)
+    if (eventId) {
+      event.event_id = eventId;
+    }
 
     // Endpoint CAPI (ajustar según tu dominio)
     const capiEndpoint = import.meta.env.VITE_CAPI_ENDPOINT || '/api/capi.php';
@@ -829,14 +930,14 @@ export async function sendToMetaCAPI(params: {
     const result = await response.json();
 
     if (result.success) {
-      console.log('✅ CAPI Event Sent:', eventName, '|', result.events_received, 'events');
+      // console.log('✅ CAPI Event Sent:', eventName, '|', result.events_received, 'events');
     } else {
-      console.error('❌ CAPI Error:', result.error);
+      // console.error('❌ CAPI Error:', result.error);
     }
 
     return result;
   } catch (error) {
-    console.error('❌ CAPI Send Failed:', error);
+    // console.error('❌ CAPI Send Failed:', error);
     return { success: false, error: 'Network error' };
   }
 }

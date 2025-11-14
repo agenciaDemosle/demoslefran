@@ -1,0 +1,141 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2025-01-14 22:00:00",
+  "containerVersion": {
+    "tag": [
+      {
+        "accountId": "6307985569",
+        "containerId": "227169581",
+        "name": "Meta Pixel - Lead (con Event ID)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nfbq('track', 'Lead', {\n  value: {{DL - Value}},\n  currency: '{{DL - Currency}}',\n  content_name: 'Quote Completed',\n  content_category: '{{DL - Services Selected}}',\n  num_items: {{DL - Services Count}}\n}, {\n  eventID: {{DL - Event ID}}\n});\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "1763158800000",
+        "firingTriggerId": [
+          "202"
+        ],
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6307985569",
+        "containerId": "227169581",
+        "name": "Meta Pixel - Contact (con Event ID)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nfbq('track', 'Contact', {\n  value: {{DL - Value}},\n  currency: '{{DL - Currency}}',\n  content_name: '{{DL - Click Location}}',\n  content_category: '{{DL - Service Interested}}'\n}, {\n  eventID: {{DL - Event ID}}\n});\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "1763158800001",
+        "firingTriggerId": [
+          "229"
+        ],
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6307985569",
+        "containerId": "227169581",
+        "name": "Meta Pixel - InitiateCheckout",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nfbq('track', 'InitiateCheckout', {\n  content_name: {{DL - Form Name}},\n  content_category: 'cotizador_inicio'\n}, {\n  eventID: {{DL - Event ID}}\n});\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "1763158800002",
+        "firingTriggerId": [
+          "255"
+        ],
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      },
+      {
+        "accountId": "6307985569",
+        "containerId": "227169581",
+        "name": "Meta Pixel - AddToWishlist",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n// Solo enviar cuando se SELECCIONA (no cuando se deselecciona)\nif ({{DL - Selection Action}} === 'selected') {\n  fbq('track', 'AddToWishlist', {\n    content_name: {{DL - Service Name}},\n    content_ids: [{{DL - Service ID}}],\n    content_category: 'cotizador_servicio',\n    num_items: {{DL - Services Count}}\n  }, {\n    eventID: {{DL - Event ID}}\n  });\n}\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "fingerprint": "1763158800003",
+        "firingTriggerId": [
+          "231"
+        ],
+        "monitoringMetadata": {
+          "type": "MAP"
+        },
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "6307985569",
+        "containerId": "227169581",
+        "name": "DL - Event ID",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "event_id"
+          }
+        ],
+        "fingerprint": "1763158800004"
+      }
+    ]
+  }
+}
